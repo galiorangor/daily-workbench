@@ -1938,5 +1938,14 @@
         // 启动即恢复
         loadState();
     </script>
+
+    <!-- 注册 Service Worker：让 PWA 可离线打开、可触发安装 -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('sw.js').catch(function () {});
+            });
+        }
+    </script>
 </body>
 </html>
