@@ -28,6 +28,12 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            max-width: 100%;
+        }
+
+        html {
+            width: 100%;
+            overflow-x: hidden;
         }
 
         body {
@@ -37,6 +43,10 @@
             min-height: 100vh;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+            position: relative;
         }
 
         /* 顶部导航 */
@@ -96,6 +106,8 @@
         .platform-tags {
             display: flex;
             gap: 6px;
+            max-width: 50vw;
+            overflow-x: auto;
         }
 
         .platform-tag {
@@ -137,7 +149,7 @@
             top: 0;
             left: 0;
             bottom: 0;
-            width: 280px;
+            width: min(280px, 82vw);
             background: var(--card);
             z-index: 301;
             transform: translateX(-100%);
