@@ -233,6 +233,17 @@
             padding: 72px 16px 30px;
             max-width: 680px;
             margin: 0 auto;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* 兜底：任何媒体/表单/表格元素都不许超出屏幕，杜绝横向溢出 */
+        img, video, iframe, table, pre, textarea, input, select, canvas {
+            max-width: 100%;
+        }
+        .panel, .card, .stage-card, .stats-grid, .task-list, .content-input {
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
         /* 面板 */
@@ -1855,11 +1866,30 @@
         loadState();
     </script>
 
-    <!-- 注册 Service Worker：让 PWA 可离线打开、可触发安装 -->
+    <!-- 注册 Service Worker：让 PWA 可离线打开、可触发安装；并在能联网时自动更新 -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
-                navigator.serviceWorker.register('sw.js').catch(function () {});
+                navigator.serviceWorker.register('sw.js').then(function (reg) {
+                    if (!reg) return;
+                    // 每次打开都主动检查新版本
+                    reg.update();
+                    // 发现新 SW 安装完成 → 立即重载以应用最新页面（修复卡在旧缓存的问题）
+                    reg.addEventListener('updatefound', function () {
+                        const installing = reg.installing;
+                        if (!installing) return;
+                        installing.addEventListener('statechange', function () {
+                            if (installing.state === 'installed' && navigator.serviceWorker.controller) {
+                                location.reload();
+                            }
+                        });
+                    });
+                }).catch(function () {});
+            });
+            // 新 SW 接管控制权后，刷新一次确保页面是最新版
+            let _reloaded = false;
+            navigator.serviceWorker.addEventListener('controllerchange', function () {
+                if (!_reloaded) { _reloaded = true; location.reload(); }
             });
         }
     </script>
