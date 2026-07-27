@@ -843,6 +843,51 @@
                 padding-top: 80px;
             }
         }
+
+        /* ===== 桌面端（≥900px）：抽屉变常驻侧边栏，内容铺满、卡片网格 ===== */
+        @media (min-width: 900px) {
+            /* 侧边栏常驻显示，不再滑动 */
+            .drawer {
+                transform: none;
+                width: 240px;
+                box-shadow: 1px 0 0 var(--border);
+            }
+            .drawer.open { transform: none; }
+            .drawer-overlay { display: none; }
+
+            /* 隐藏汉堡按钮（桌面用侧栏导航） */
+            .menu-btn { display: none; }
+
+            /* 顶栏贴在内容区上方 */
+            .topbar {
+                left: 240px;
+                right: 0;
+                width: auto;
+            }
+
+            /* 内容区让出侧栏并铺满剩余空间 */
+            .main-content {
+                margin-left: 240px;
+                width: auto;
+                max-width: none;
+                padding: 88px 48px 56px;
+            }
+
+            /* 统计卡一行四列 */
+            .stats-grid { grid-template-columns: repeat(4, 1fr); }
+
+            /* 多卡片面板：自适应网格，铺满桌面宽度 */
+            .panel.dgrid.active {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+                gap: 18px;
+                align-items: start;
+            }
+            .panel.dgrid.active > .stats-grid { grid-column: 1 / -1; }
+
+            /* 顺序型长文面板保持单栏、限定宽度更易读 */
+            #panel-health { max-width: 980px; margin: 0 auto; }
+        }
     </style>
 </head>
 <body>
@@ -987,7 +1032,7 @@
         </section>
 
         <!-- 每日灵感 -->
-        <section class="panel" id="panel-inspiration">
+        <section class="panel dgrid" id="panel-inspiration">
             <div class="card">
                 <div class="card-title">💡 今日灵感</div>
                 <div class="card-subtitle">随时记录选题、脚本、画面灵感，每日 09:00 自动提醒。</div>
@@ -1015,7 +1060,7 @@
 
         <!-- 养生计划 -->
                 <!-- 每日运动 -->
-        <section class="panel" id="panel-motion">
+        <section class="panel dgrid" id="panel-motion">
             <div class="card">
                 <div class="card-title">🧘 八段锦</div>
                 <div class="card-subtitle">每日晨起 12 分钟，调息养神</div>
@@ -1414,7 +1459,7 @@
         </section>
 
         <!-- 钢琴练习 -->
-        <section class="panel" id="panel-piano">
+        <section class="panel dgrid" id="panel-piano">
             <div class="card">
                 <div class="card-title">🎹 钢琴练习 · 进阶路线</div>
                 <div class="card-subtitle">从基础手型到完整曲目，逐步进阶。练到过关标准即可解锁下一阶段。</div>
@@ -1477,7 +1522,7 @@
         </section>
 
         <!-- 英语学习 -->
-        <section class="panel" id="panel-english">
+        <section class="panel dgrid" id="panel-english">
             <div class="card english-hero">
                 <div class="card-title">🌍 英语学习 · BBC 随身英语</div>
                 <div class="card-subtitle">每天 30 分钟盲听练习。选一篇文章，用「阅读模式」切换译文，用底部播放器逐句朗读、调倍速、做单词训练。</div>
