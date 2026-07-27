@@ -945,10 +945,14 @@
                 <span class="drawer-icon">🎹</span>
                 <span>钢琴练习</span>
             </div>
-            <div class="drawer-item" data-panel="english" onclick="switchPanel('english')">
-                <span class="drawer-icon">📚</span>
-                <span>英语学习</span>
-            </div>
+                <div class="drawer-item" data-panel="english" onclick="switchPanel('english')">
+                    <span class="drawer-icon">📚</span>
+                    <span>英语学习</span>
+                </div>
+                <div class="drawer-item" data-panel="skincare" onclick="switchPanel('skincare')">
+                    <span class="drawer-icon">🧴</span>
+                    <span>护肤</span>
+                </div>
         </nav>
         <div class="drawer-footer">
             <div>状态：<span class="status">复更中</span></div>
@@ -1009,6 +1013,75 @@
                                 <div class="task-title">钢琴练习</div>
                                 <div class="task-desc">音阶 + 曲目 + 技巧，45 分钟</div>
                                 <span class="task-tag">每日必做</span>
+                            </div>
+                            <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="task-group">
+                    <div class="task-group-title">三餐打卡</div>
+                    <div class="task-group-desc">对照养生计划的三餐与忌口，按时吃、七分饱。</div>
+                    <div class="task-list" id="mealTaskList">
+                        <div class="task-item daily" data-key="ME1" data-id="1" onclick="toggleTask(this)">
+                            <div class="checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-title">早餐打卡</div>
+                                <div class="task-desc">温软易消化：山药小米粥 + 蛋 + 馒头</div>
+                                <span class="task-tag">每日必做</span>
+                            </div>
+                            <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                        </div>
+                        <div class="task-item daily" data-key="ME2" data-id="2" onclick="toggleTask(this)">
+                            <div class="checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-title">午餐打卡</div>
+                                <div class="task-desc">温和主食 + 少量瘦肉/豆腐 + 绿叶菜，七分饱</div>
+                                <span class="task-tag">每日必做</span>
+                            </div>
+                            <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                        </div>
+                        <div class="task-item daily" data-key="ME3" data-id="3" onclick="toggleTask(this)">
+                            <div class="checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-title">晚餐打卡</div>
+                                <div class="task-desc">睡前 3 小时吃完，不宵夜</div>
+                                <span class="task-tag">每日必做</span>
+                            </div>
+                            <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                        </div>
+                        <div class="task-item daily" data-key="ME4" data-id="4" onclick="toggleTask(this)">
+                            <div class="checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-title">今日忌口遵守</div>
+                                <div class="task-desc">冰饮 / 重酸辣 / 油炸甜食 / 大量精制面食</div>
+                                <span class="task-tag">抗炎·养脾胃</span>
+                            </div>
+                            <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="task-group">
+                    <div class="task-group-title">肩颈舒缓</div>
+                    <div class="task-group-desc">对着屏幕一整天，肩颈最吃亏，拆进日常打卡。</div>
+                    <div class="task-list" id="neckTaskList">
+                        <div class="task-item daily" data-key="NK1" data-id="1" onclick="toggleTask(this)">
+                            <div class="checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-title">肩颈放松打卡</div>
+                                <div class="task-desc">欧阳春晓肩颈放松全套 10 分钟</div>
+                                <span class="task-tag">每日必做</span>
+                            </div>
+                            <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                        </div>
+                        <div class="task-item daily" data-key="NK2" data-id="2" onclick="toggleTask(this)">
+                            <div class="checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-title">每小时肩颈拉伸</div>
+                                <div class="task-desc">起身扩胸 + 颈部左右缓慢拉伸 1 分钟</div>
+                                <span class="task-tag">防劳损</span>
                             </div>
                             <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
                         </div>
@@ -1612,6 +1685,108 @@
                 <button class="save-btn" onclick="saveContent(this)">保存</button>
             </div>
         </section>
+        <!-- 护肤 -->
+        <section class="panel dgrid" id="panel-skincare">
+            <div class="card">
+                <div class="card-title">🧴 敏感肌 · 抗炎护肤</div>
+                <div class="card-subtitle">你的目标：稳住屏障、压下炎症，不烂脸。核心四件事——温和清洁、舒缓保湿、硬防晒、避开酒精/香精/猛药酸。</div>
+                <div class="tag-list">
+                    <span class="tag">敏感肌</span>
+                    <span class="tag">抗炎护肤</span>
+                    <span class="tag">修护屏障</span>
+                    <span class="tag">硬防晒</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🧴 现有产品清单</div>
+                <div class="card-subtitle">按你皮肤耐受情况叠加，先单一建立耐受再逐步加量。</div>
+                <div class="practice-list">
+                    <div class="practice-item">
+                        <div>
+                            <div class="practice-title">优斐斯精华</div>
+                            <div class="practice-desc">抗炎修护主力，夜间用；建立耐受后晨间可续。</div>
+                        </div>
+                    </div>
+                    <div class="practice-item">
+                        <div>
+                            <div class="practice-title">可复美（喷雾状水）</div>
+                            <div class="practice-desc">随时舒缓补水，喷后轻拍至吸收，可湿敷急救。</div>
+                        </div>
+                    </div>
+                    <div class="practice-item">
+                        <div>
+                            <div class="practice-title">科颜萃精华</div>
+                            <div class="practice-desc">修护类精华，用于屏障养护，叠加在抗炎之后。</div>
+                        </div>
+                    </div>
+                    <div class="practice-item">
+                        <div>
+                            <div class="practice-title">初辑</div>
+                            <div class="practice-desc">抗炎/舒缓类，按说明少量叠加，观察耐受。</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-subtitle" style="margin-top:12px;margin-bottom:0;">⚠️ 叠加顺序以耐受为准：清洁 → 水（可复美）→ 精华（优斐斯/科颜萃/初辑）→ 保湿。酒精、香精、高浓度酸先停。</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🌞 抗炎护肤原则</div>
+                <div class="card-subtitle">敏感肌的底线，照着做就不容易烂脸。</div>
+                <div class="practice-list">
+                    <div class="practice-item"><div><div class="practice-title">温和清洁</div><div class="practice-desc">氨基酸洁面，37°C 温水，早晚各一次，不频繁去角质。</div></div></div>
+                    <div class="practice-item"><div><div class="practice-title">舒缓保湿</div><div class="practice-desc">用现有修护类产品稳住屏障，洗脸后趁湿涂。</div></div></div>
+                    <div class="practice-item"><div><div class="practice-title">硬防晒</div><div class="practice-desc">户外帽 / 伞 / 口罩，紫外线是敏感肌头号炎症源。</div></div></div>
+                    <div class="practice-item"><div><div class="practice-title">避开刺激</div><div class="practice-desc">暂停酒精、香精、高浓度酸、猛药成分，先养屏障。</div></div></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="task-group">
+                    <div class="task-group-title">每日护肤打卡</div>
+                    <div class="task-group-desc">抗炎护肤也要每天勾，和吃饭、运动一样算日课。</div>
+                    <div class="task-list" id="skinTaskList">
+                        <div class="task-item daily" data-key="SK1" data-id="1" onclick="toggleTask(this)">
+                            <div class="checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-title">晨间抗炎护肤</div>
+                                <div class="task-desc">清洁 + 水 + 精华 + 防晒</div>
+                                <span class="task-tag">每日必做</span>
+                            </div>
+                            <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                        </div>
+                        <div class="task-item daily" data-key="SK2" data-id="2" onclick="toggleTask(this)">
+                            <div class="checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-title">夜间修护护肤</div>
+                                <div class="task-desc">清洁 + 优斐斯/科颜萃 + 可复美湿敷</div>
+                                <span class="task-tag">每日必做</span>
+                            </div>
+                            <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                        </div>
+                        <div class="task-item daily" data-key="SK3" data-id="3" onclick="toggleTask(this)">
+                            <div class="checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-title">今日硬防晒</div>
+                                <div class="task-desc">户外帽 / 伞 / 口罩，至少一项</div>
+                                <span class="task-tag">抗炎关键</span>
+                            </div>
+                            <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                        </div>
+                        <div class="task-item daily" data-key="SK4" data-id="4" onclick="toggleTask(this)">
+                            <div class="checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-title">今日未碰刺激成分</div>
+                                <div class="task-desc">酒精 / 香精 / 高浓度酸，今天没作死</div>
+                                <span class="task-tag">护屏障</span>
+                            </div>
+                            <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <script>
@@ -1640,7 +1815,8 @@
             health: '养生计划',
             memo: '备忘录',
             piano: '钢琴练习',
-            english: '英语学习'
+            english: '英语学习',
+            skincare: '护肤'
         };
 
         function switchPanel(panelId) {
