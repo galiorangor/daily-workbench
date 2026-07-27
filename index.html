@@ -340,6 +340,29 @@
             color: #e65100;
         }
 
+        /* 学习计划表格 */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+        .table th, .table td {
+            border: 1px solid var(--border);
+            padding: 8px 10px;
+            text-align: left;
+            vertical-align: top;
+            line-height: 1.5;
+        }
+        .table th {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .table tbody tr:nth-child(even) td {
+            background: #faf9f6;
+        }
+
         /* 进度条 */
         .progress-bar {
             height: 8px;
@@ -886,7 +909,7 @@
             .panel.dgrid.active > .stats-grid { grid-column: 1 / -1; }
 
             /* 顺序型长文面板保持单栏、限定宽度更易读 */
-            #panel-health { max-width: 980px; margin: 0 auto; }
+            #panel-health, #panel-workstudy { max-width: 900px; margin: 0 auto; }
         }
     </style>
 </head>
@@ -952,6 +975,10 @@
                 <div class="drawer-item" data-panel="skincare" onclick="switchPanel('skincare')">
                     <span class="drawer-icon">🧴</span>
                     <span>护肤</span>
+                </div>
+                <div class="drawer-item" data-panel="workstudy" onclick="switchPanel('workstudy')">
+                    <span class="drawer-icon">💼</span>
+                    <span>工作学习</span>
                 </div>
         </nav>
         <div class="drawer-footer">
@@ -1787,6 +1814,158 @@
             </div>
         </section>
 
+        <!-- 工作学习 -->
+        <section class="panel" id="panel-workstudy">
+            <div class="card">
+                <div class="card-title">📅 7 天学习计划总览</div>
+                <div class="card-subtitle">半导体封装设备及备件采购学习教练 · 每天一个模块，循序渐进。</div>
+                <table class="table">
+                    <thead><tr><th>天数</th><th>主题</th><th>关键内容</th></tr></thead>
+                    <tbody>
+                        <tr><td>Day 1</td><td>产业链与商业模式</td><td>前道/后道、IDM / Foundry / Fabless / OSAT</td></tr>
+                        <tr><td>Day 2</td><td>传统封装工艺流程</td><td>完整封装步骤拆解</td></tr>
+                        <tr><td>Day 3</td><td>封装类型与材料</td><td>SOP / QFP / QFN / BGA / CSP / SiP、打线 / 倒装、关键材料</td></tr>
+                        <tr><td>Day 4</td><td>封装设备与备件</td><td>常用设备、备件、耗材、停机风险</td></tr>
+                        <tr><td>Day 5</td><td>OEM / 标准件 / 非标件</td><td>设备改造与 CAPEX 分析</td></tr>
+                        <tr><td>Day 6</td><td>应急采购与案例</td><td>单源 / 替代 / 长交期 / 库存 / 扩产</td></tr>
+                        <tr><td>Day 7</td><td>综合测试 + 面试模拟</td><td>复盘与专业表达训练</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🎯 学习打卡</div>
+                <div class="card-subtitle">每天学完勾一下，进度自己看得见。</div>
+                <div class="task-list" id="studyTaskList">
+                    <div class="task-item daily" data-key="LS1" data-id="1" onclick="toggleTask(this)">
+                        <div class="checkbox"></div>
+                        <div class="task-content"><div class="task-title">Day 1 产业链与商业模式</div><span class="task-tag">进行中</span></div>
+                        <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                    </div>
+                    <div class="task-item daily" data-key="LS2" data-id="2" onclick="toggleTask(this)">
+                        <div class="checkbox"></div>
+                        <div class="task-content"><div class="task-title">Day 2 传统封装工艺流程</div><span class="task-tag">待学</span></div>
+                        <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                    </div>
+                    <div class="task-item daily" data-key="LS3" data-id="3" onclick="toggleTask(this)">
+                        <div class="checkbox"></div>
+                        <div class="task-content"><div class="task-title">Day 3 封装类型与材料</div><span class="task-tag">待学</span></div>
+                        <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                    </div>
+                    <div class="task-item daily" data-key="LS4" data-id="4" onclick="toggleTask(this)">
+                        <div class="checkbox"></div>
+                        <div class="task-content"><div class="task-title">Day 4 封装设备与备件</div><span class="task-tag">待学</span></div>
+                        <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                    </div>
+                    <div class="task-item daily" data-key="LS5" data-id="5" onclick="toggleTask(this)">
+                        <div class="checkbox"></div>
+                        <div class="task-content"><div class="task-title">Day 5 OEM / 标准件 / 非标件</div><span class="task-tag">待学</span></div>
+                        <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                    </div>
+                    <div class="task-item daily" data-key="LS6" data-id="6" onclick="toggleTask(this)">
+                        <div class="checkbox"></div>
+                        <div class="task-content"><div class="task-title">Day 6 应急采购与案例</div><span class="task-tag">待学</span></div>
+                        <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                    </div>
+                    <div class="task-item daily" data-key="LS7" data-id="7" onclick="toggleTask(this)">
+                        <div class="checkbox"></div>
+                        <div class="task-content"><div class="task-title">Day 7 综合测试 + 面试模拟</div><span class="task-tag">待学</span></div>
+                        <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🎓 Day 1 · 半导体产业链与商业模式</div>
+                <div class="card-subtitle"><b>学习目标：</b>画清产业链、分清前道/后道、搞懂四种商业模式、从采购视角判断供应商结构。<br><b>预计时间：</b>30–45 分钟。<br><b>学习顺序：</b>产业链全景 → 前道 vs 后道 → 四种模式 → 采购视角。</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">① 产业链全景</div>
+                <div class="card-subtitle">IC 设计 → 晶圆制造 (Front-end) → 晶圆测试 (CP, Chip Probing) → 封装 (Packaging) → 最终测试 (FT, Final Test) → 出货</div>
+                <table class="table">
+                    <thead><tr><th>阶段</th><th>核心动作</th><th>采购重点</th></tr></thead>
+                    <tbody>
+                        <tr><td>IC 设计</td><td>架构与电路设计</td><td>EDA、IP 授权、流片 / 代工服务</td></tr>
+                        <tr><td>前道制造</td><td>硅晶圆上做出电路</td><td>光刻 / 刻蚀 / 沉积设备与高价值备件</td></tr>
+                        <tr><td>晶圆测试 CP</td><td>切割前筛出坏 die</td><td>探针卡 (Probe Card)、测试机 (Tester)、探针台 (Prober)</td></tr>
+                        <tr><td>封装</td><td>把 die 包起来、连引脚</td><td>贴片 / 焊线 / 塑封机、基板、塑封料</td></tr>
+                        <tr><td>最终测试 FT</td><td>出厂前功能 / 性能测试</td><td>测试机、分选机 (Handler)、测试座 (Test Socket)</td></tr>
+                    </tbody>
+                </table>
+                <div class="card-subtitle" style="margin-top:10px;">采购视角：前道是 <b>CAPEX 游戏</b>（设备天价）；后道是 <b>CAPEX + OPEX 混合</b>（设备较便宜、耗材备件周转快）。你的主战场在<b>后道</b>。</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">② 前道 vs 后道：采购差异</div>
+                <table class="table">
+                    <thead><tr><th>维度</th><th>前道 Front-end</th><th>后道 Back-end</th></tr></thead>
+                    <tbody>
+                        <tr><td>设备单价</td><td>极高（EUV 光刻机上亿 USD）</td><td>中等（焊线机几十万 ~ 百万 USD）</td></tr>
+                        <tr><td>单源风险</td><td>极高（ASML EUV 等）</td><td>中等（K&amp;S / Shinkawa 等可选）</td></tr>
+                        <tr><td>备件特点</td><td>高价值、长交期、需原厂认证</td><td>种类多、消耗快、部分可国产替代</td></tr>
+                        <tr><td>采购周期</td><td>设备 12–24 月，备件 3–6 月</td><td>设备 3–9 月，备件 1–8 周</td></tr>
+                        <tr><td>供应商结构</td><td>OEM 垄断 + 授权服务商</td><td>OEM + 代理商 + 国产替代厂</td></tr>
+                        <tr><td>经验映射</td><td>类似整车大型产线投资</td><td>更像 MRO + 工装夹具管理</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-title">③ 四种商业模式</div>
+                <div class="card-subtitle">
+                    <b>IDM</b>（Intel / Samsung / TI）：设计 + 制造 + 封测全做，采购量大、议价强，关键备件签维保合同 (Service Contract)。<br>
+                    <b>Foundry</b>（TSMC / SMIC）：只做前道，基本不直接买封装设备。<br>
+                    <b>Fabless</b>（Qualcomm / NVIDIA）：只设计，不买设备，买封测服务。<br>
+                    <b>OSAT</b>（ASE / Amkor / 长电科技）：专做封测，是封装设备 / 备件 / 耗材采购主力，国产替代机会大但关键工艺仍有单源风险。
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">④ 采购视角总结</div>
+                <div class="card-subtitle">
+                    1) 客户是谁决定买什么：IDM / Foundry 买前道，OSAT 买后道，Fabless 不买设备。<br>
+                    2) CAPEX vs OPEX 预算来源不同：设备走资本预算（项目制、长周期），备件 / 耗材走 MRO 流程（频繁补货）。<br>
+                    3) 单源 vs 多源：核心设备往往单源或双寡头，通用备件可引入第二供应商。<br>
+                    4) 你的汽车 MRO 经验直接可用：SAP 的 PR / PO / GR、供应商绩效、VMI 寄售、安全库存、ABC 分类逻辑完全一致，差异只在技术参数更细、认证周期更长。
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📝 一页纸总结 + 关键词</div>
+                <div class="card-subtitle">产业链 = 设计 → 前道 → CP → 封装 → FT。主战场在后道，客户是 OSAT / IDM。核心能力 = 技术参数理解 + TCO 分析 + 供应链风险管理 + MRO 经验迁移。</div>
+                <table class="table">
+                    <thead><tr><th>中文</th><th>English</th><th>采购含义</th></tr></thead>
+                    <tbody>
+                        <tr><td>前道</td><td>Front-end</td><td>重资产、高单价设备</td></tr>
+                        <tr><td>后道</td><td>Back-end</td><td>封装 + 测试，设备 / 备件 / 耗材混合</td></tr>
+                        <tr><td>封装</td><td>Packaging / Assembly</td><td>包 die 并连外部引脚</td></tr>
+                        <tr><td>OSAT</td><td>外包封测厂</td><td>封装设备 / 备件采购主力</td></tr>
+                        <tr><td>CAPEX</td><td>资本支出</td><td>买设备、建产线</td></tr>
+                        <tr><td>OPEX</td><td>运营支出</td><td>备件 / 耗材 / 维保</td></tr>
+                        <tr><td>TCO</td><td>总拥有成本</td><td>设备 + 备件 + 停机 + 服务</td></tr>
+                        <tr><td>稼动率</td><td>Utilization</td><td>设备利用率，驱动耗材量</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-title">💼 采购案例</div>
+                <div class="card-subtitle">某 OSAT 扩产采购 10 台 Wire Bonder（焊线机）+ 1 年瓷嘴 / 劈刀 + 维保。问题：① 品牌平衡 K&amp;S（交期长）vs Shinkawa（价格优）；② 瓷嘴消耗大，是否签 VMI 寄售降库存；③ 加热模块是否单源，需否二供；④ 设备走 CAPEX、瓷嘴走 OPEX，合同拆分还是打包谈折扣；⑤ 与汽车 MRO 采购 CNC 夹具 + 刀具逻辑类似，只是认证更严、交期更紧。</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">❓ Day 1 思考题</div>
+                <div class="card-subtitle">
+                    1. 前道与后道采购最大的三个差异？<br>
+                    2. 为什么 OSAT 是封装设备及备件采购的主要客户？<br>
+                    3. CAPEX / OPEX 各举 2 例。<br>
+                    4. Fabless 找你买 Wire Bonder，如何判断需求是否合理？<br>
+                    5. 把汽车 MRO 经验迁移到半导体备件采购，哪 3 个方法可直接复用？
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <script>
@@ -1816,7 +1995,8 @@
             memo: '备忘录',
             piano: '钢琴练习',
             english: '英语学习',
-            skincare: '护肤'
+            skincare: '护肤',
+            workstudy: '工作学习'
         };
 
         function switchPanel(panelId) {
