@@ -1765,7 +1765,7 @@
             <!-- 顶部：严格顺序总览 -->
             <div class="card english-hero" style="background: linear-gradient(135deg, #f2eeea 0%, #e9e4dd 100%); border-color: #e4ded6;">
                 <div class="card-title" style="color:#8b7355">🌱 调理严格顺序</div>
-                <div class="card-subtitle" style="color:#a68b6b">第一步养大便成形（7-10天）→ 第二步提升脾胃动力（2-3周）→ 第三步滋养补足气血。同步每日欧阳春晓肩颈训练疏通膀胱经、疏肝祛湿。<strong>顺序不可逆，禁止前期大量滋补阿胶、桂圆、牛油果、坚果等滋腻食物加重脾胃负担。</strong></div>
+                <div class="card-subtitle" style="color:#a68b6b">当前第一步：先把大便养成形（7-10天）。顺序不可逆，禁止前期大量滋补阿胶、桂圆、牛油果、坚果等滋腻食物加重脾胃负担；同步每日欧阳春晓肩颈训练疏通膀胱经、疏肝祛湿。待脾胃接得住，再按身体反馈逐步温和推进。</div>
                 <div class="progress-bar" style="background:#e8e2da">
                     <div class="progress-fill" style="width: 33%"></div>
                 </div>
@@ -1807,8 +1807,6 @@
                 <div class="card-subtitle">早餐固定、中餐食堂，晚餐不知道吃什么？掷一个健脾养胃的晚餐。</div>
                 <select class="dinner-stage" id="dinnerStage">
                     <option value="1">第一阶段：健脾祛湿（温和易消化）</option>
-                    <option value="2">第二阶段：养脾胃动力（逐步加蛋白）</option>
-                    <option value="3">第三阶段：补气血（可适量红肉）</option>
                 </select>
                 <button class="roll-btn" onclick="rollDinner()">🎲 掷骰子</button>
                 <div class="dinner-result" id="dinnerResult">
@@ -1910,70 +1908,8 @@
                     </div>
                 </div>
                 <div class="stage-section">
-                    <div class="stage-section-title">阶段自检标准（达标进第二阶段）</div>
+                    <div class="stage-section-title">阶段自检标准（达标即可进阶）</div>
                     <div class="stage-section-text">① 大便成型、不黏马桶；② 饭后腹胀明显减轻；③ 晨起嘴里不发黏。<strong>不看脸色、体重、胸部状态，脾胃为先。</strong></div>
-                </div>
-            </div>
-
-            <!-- 第二阶段 -->
-            <div class="stage-card" style="border-color:#decfd6">
-                <div class="stage-header">
-                    <div class="stage-title">第二阶段 · 2-3周 提升脾胃动力</div>
-                    <span class="card-badge badge-purple">待开启</span>
-                </div>
-                <div class="stage-section">
-                    <div class="stage-section-title">饮食升级调整</div>
-                    <div class="stage-section-text">
-                        • 早餐山药小米粥保留，不再顿顿喝粥；三餐均衡补优质蛋白：鸡蛋、瘦牛肉、淡水鱼、嫩豆腐<br>
-                        • 温和食疗汤（每周2-3次）：山药+党参+莲子+2颗红枣+瘦肉煲汤<br>
-                        • 可少量分次加原味坚果（每日少量）；牛油果暂缓<br>
-                        • 养生茶更换：太子参3g+少量黄芪+陈皮+茯苓；口干烦躁失眠立刻停
-                    </div>
-                </div>
-                <div class="stage-section">
-                    <div class="stage-section-title">居家动作升级</div>
-                    <div class="practice-list">
-                        <div class="practice-item" data-key="P7" onclick="togglePractice(this)"><div class="checkbox"></div><div><div class="practice-title">保留饭后慢走+睡前揉腹+温敷+泡脚</div></div></div>
-                        <div class="practice-item" data-key="P8" onclick="togglePractice(this)"><div class="checkbox"></div><div><div class="practice-title">每日按揉足三里</div><div class="practice-desc">左右各3-5分钟，酸胀感即可，长期强化脾胃运化。</div></div></div>
-                        <div class="practice-item" data-key="P9" onclick="togglePractice(this)"><div class="checkbox"></div><div><div class="practice-title">艾灸可选辅助</div><div class="practice-desc">舌苔白腻、无口苦口臭、大便不臭才可：中脘、足三里、关元；饭后不灸、时间短。黄腻舌苔/口苦禁止。</div></div></div>
-                        <div class="practice-item" data-key="P10" onclick="togglePractice(this)"><div class="checkbox"></div><div><div class="practice-title">肩颈维持+靠墙站立5分钟</div><div class="practice-desc">强化背部肌肉，减少颈椎代偿，缓解后背沉重淤堵感。</div></div></div>
-                    </div>
-                </div>
-                <div class="stage-section">
-                    <div class="stage-section-title">阶段自检标准（达标进第三阶段）</div>
-                    <div class="stage-section-text">① 大便长期稳定成形；② 饭后无堵塞胀气；③ 下午不疲惫发沉；④ 三餐胃口稳定，不会吃一点就饱胀。</div>
-                </div>
-            </div>
-
-            <!-- 第三阶段 -->
-            <div class="stage-card" style="border-color:#d2d9cb">
-                <div class="stage-header">
-                    <div class="stage-title">第三阶段 · 正式补养气血</div>
-                    <span class="card-badge badge-orange">待开启</span>
-                </div>
-                <div class="stage-section">
-                    <div class="stage-section-title">完整饮食滋补方案</div>
-                    <div class="stage-section-text">
-                        • 日常三餐蛋白拉满：瘦红肉、鸡蛋、深绿色蔬菜，每周少量动物肝脏一次补铁养血<br>
-                        • 养血汤：山药+少量红枣+枸杞+乌鸡/瘦肉炖汤（红枣2-3颗、枸杞一小撮）<br>
-                        • 优质脂肪恢复：白天少量牛油果、每日定量坚果<br>
-                        • 养血茶（必加陈皮防滋腻）：少量当归+黄芪+陈皮；腹胀便溏上火立刻停
-                    </div>
-                </div>
-                <div class="stage-section">
-                    <div class="stage-section-title">全套居家养护动作</div>
-                    <div class="practice-list">
-                        <div class="practice-item" data-key="P11" onclick="togglePractice(this)"><div class="checkbox"></div><div><div class="practice-title">基础全套保留</div><div class="practice-desc">饭后散步、睡前揉腹100圈、温敷腹部、泡脚、每日足三里、欧阳春晓肩颈训练。</div></div></div>
-                        <div class="practice-item" data-key="P12" onclick="togglePractice(this)"><div class="checkbox"></div><div><div class="practice-title">睡前新增搓涌泉 100 下</div><div class="practice-desc">暖足行气，改善气血不足、夜间浅眠多梦。</div></div></div>
-                    </div>
-                </div>
-                <div class="stage-section">
-                    <div class="stage-section-title">长期核心禁忌 & 底层逻辑</div>
-                    <div class="stage-section-text" style="color:#bf360c">
-                        • 顺序不可逆：初期禁阿胶/桂圆/大量红枣/滋补油膏，脾胃无力运化只生湿浊<br>
-                        • 作息红线：23点后入睡直接损耗肝脾气血，前面全白费，加重惊醒/肝郁<br>
-                        • 情绪配套：偶尔乱吃无需摆烂，次日回归清淡健脾餐；长期焦虑肝火堵塞膀胱经、加重结节风险、肩颈僵硬
-                    </div>
                 </div>
             </div>
 
