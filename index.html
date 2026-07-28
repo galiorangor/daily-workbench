@@ -10,7 +10,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon-180.png">
     <link rel="icon" type="image/png" href="icon-192.png">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+KuaiLe&family=Baloo+2:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #8b9a7c;
@@ -1153,9 +1153,134 @@
             /* 顺序型长文面板保持单栏、限定宽度更易读 */
             #panel-health, #panel-workstudy { max-width: 900px; margin: 0 auto; }
         }
+    
+        /* ===== 卡通小熊主题 ===== */
+        :root {
+            --bear: #c9b29a;
+            --bear-light: #e7d8c6;
+            --bear-cheek: #e9b3ba;
+            --font-cartoon: 'ZCOOL KuaiLe', 'Baloo 2', 'Noto Sans SC', sans-serif;
+        }
+        /* 卡通字体：标题/按钮更圆润可爱 */
+        .topbar-title, .drawer-name, .greet-hi, .card-title, .stage-section-title,
+        .motion-hero-title, .roll-btn, .platform-btn, .motion-cta, .chip, .study-title, .part-title {
+            font-family: var(--font-cartoon);
+        }
+
+        /* 问候气泡里的小熊（摇摆 + 轻晃） */
+        .greeting { align-items: center; gap: 14px; }
+        .greet-bear { flex-shrink: 0; width: 60px; height: 60px;
+            background: rgba(255,255,255,0.55); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 12px rgba(139,154,124,0.18); }
+        .greet-bear svg { width: 50px; height: 50px; transform-origin: 50% 92%;
+            animation: bearSway 2.8s ease-in-out infinite; }
+        .greet-text { flex: 1; min-width: 0; }
+        @keyframes bearSway {
+            0%,100% { transform: rotate(-5deg) translateY(0); }
+            50%     { transform: rotate(6deg) translateY(-3px); }
+        }
+
+        /* 页面标题前的小熊 */
+        .topbar-title { display: inline-flex; align-items: center; }
+        .topbar-title::before {
+            content: ''; width: 22px; height: 22px; margin-right: 7px;
+            background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Cellipse%20cx%3D%2232%22%20cy%3D%2242%22%20rx%3D%2213%22%20ry%3D%2211%22%20fill%3D%22%2523b79e84%22%2F%3E%3Ccircle%20cx%3D%2219%22%20cy%3D%2224%22%20r%3D%225.5%22%20fill%3D%22%2523b79e84%22%2F%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2218%22%20r%3D%226%22%20fill%3D%22%2523b79e84%22%2F%3E%3Ccircle%20cx%3D%2245%22%20cy%3D%2224%22%20r%3D%225.5%22%20fill%3D%22%2523b79e84%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat; flex-shrink: 0;
+        }
+
+        /* 抽屉头部小熊 */
+        .drawer-name { display: flex; align-items: center; gap: 8px; }
+        .drawer-bear { width: 30px; height: 30px; flex-shrink: 0;
+            animation: bearBob 3s ease-in-out infinite; }
+        @keyframes bearBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+
+        /* 贴纸风卡片：更圆、描边、俏皮立体阴影 */
+        .card {
+            border: 2px solid #ece6dd;
+            border-radius: 26px;
+            box-shadow: 0 3px 0 var(--primary-light), 0 10px 22px rgba(110,100,90,0.07);
+        }
+        @media (hover: hover) {
+            .card:hover { transform: translateY(-4px);
+                box-shadow: 0 6px 0 var(--primary-light), 0 16px 28px rgba(110,100,90,0.11); }
+        }
+
+        /* 章节标题前的爪印 */
+        .stage-section-title::before, .card-title::before {
+            content: ''; display: inline-block; width: 16px; height: 16px;
+            background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Cellipse%20cx%3D%2232%22%20cy%3D%2242%22%20rx%3D%2213%22%20ry%3D%2211%22%20fill%3D%22%2523b79e84%22%2F%3E%3Ccircle%20cx%3D%2219%22%20cy%3D%2224%22%20r%3D%225.5%22%20fill%3D%22%2523b79e84%22%2F%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2218%22%20r%3D%226%22%20fill%3D%22%2523b79e84%22%2F%3E%3Ccircle%20cx%3D%2245%22%20cy%3D%2224%22%20r%3D%225.5%22%20fill%3D%22%2523b79e84%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat; margin-right: 6px;
+            vertical-align: -2px; opacity: .85;
+        }
+        .card-title::before { width: 18px; height: 18px; }
+
+        /* 按钮俏皮化：圆润 + 按压回弹 */
+        .roll-btn, .platform-btn, .motion-cta, .roll-mini, .chip, .study-check, .btn {
+            transition: transform .16s ease, box-shadow .16s ease, background .2s ease, color .2s ease;
+        }
+        @media (hover: hover) {
+            .roll-btn:hover, .platform-btn:hover, .motion-cta:hover, .chip:hover,
+            .study-item:hover, .tip-card:hover, .ouyang-item:hover, .practice-item:hover { transform: translateY(-2px) scale(1.01); }
+        }
+        .roll-btn:active, .platform-btn:active, .motion-cta:active, .roll-mini:active,
+        .chip:active, .study-check:active { transform: scale(0.95); }
+
+        /* 勾选弹跳更明显 */
+        @keyframes checkPop { 0%{transform:scale(0.5) rotate(-8deg)} 60%{transform:scale(1.2) rotate(6deg)} 100%{transform:scale(1)} }
+
+        /* 浮动小熊装饰 */
+        .float-bear {
+            position: fixed; right: 12px; bottom: 14px; width: 64px; height: 64px;
+            z-index: 6; pointer-events: none; opacity: .92;
+            filter: drop-shadow(0 6px 10px rgba(139,154,124,0.25));
+            animation: bearFloat 4s ease-in-out infinite;
+        }
+        .float-bear svg { width: 100%; height: 100%; }
+        @keyframes bearFloat { 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-7px) rotate(4deg)} }
+        @media (max-width: 480px) { .float-bear { width: 52px; height: 52px; right: 8px; bottom: 10px; } }
+
     </style>
 </head>
 <body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="bear" viewBox="0 0 120 120">
+    <circle cx="37" cy="32" r="15" fill="#c9b29a"/>
+    <circle cx="83" cy="32" r="15" fill="#c9b29a"/>
+    <circle cx="37" cy="32" r="7.5" fill="#e7d8c6"/>
+    <circle cx="83" cy="32" r="7.5" fill="#e7d8c6"/>
+    <circle cx="60" cy="58" r="35" fill="#c9b29a"/>
+    <circle cx="43" cy="67" r="7" fill="#e9b3ba" opacity="0.65"/>
+    <circle cx="77" cy="67" r="7" fill="#e9b3ba" opacity="0.65"/>
+    <ellipse cx="60" cy="71" rx="19" ry="14" fill="#f2e8d9"/>
+    <circle cx="48" cy="53" r="4.6" fill="#4a4036"/>
+    <circle cx="72" cy="53" r="4.6" fill="#4a4036"/>
+    <circle cx="49.4" cy="51.4" r="1.6" fill="#fff"/>
+    <circle cx="73.4" cy="51.4" r="1.6" fill="#fff"/>
+    <ellipse cx="60" cy="64" rx="5" ry="3.6" fill="#5a4a3a"/>
+    <path d="M60 67 v5 M60 72 q-5 3 -9 1 M60 72 q5 3 9 1" stroke="#7a6a58" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="bearSleep" viewBox="0 0 120 120">
+    <circle cx="37" cy="32" r="15" fill="#b9a289"/>
+    <circle cx="83" cy="32" r="15" fill="#b9a289"/>
+    <circle cx="37" cy="32" r="7.5" fill="#ddd0bd"/>
+    <circle cx="83" cy="32" r="7.5" fill="#ddd0bd"/>
+    <circle cx="60" cy="58" r="35" fill="#b9a289"/>
+    <circle cx="43" cy="67" r="7" fill="#d9a9af" opacity="0.6"/>
+    <circle cx="77" cy="67" r="7" fill="#d9a9af" opacity="0.6"/>
+    <ellipse cx="60" cy="71" rx="19" ry="14" fill="#ece1d1"/>
+    <path d="M44 54 q4 4 8 0" stroke="#4a4036" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M68 54 q4 4 8 0" stroke="#4a4036" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <ellipse cx="60" cy="64" rx="5" ry="3.6" fill="#5a4a3a"/>
+    <path d="M60 67 v5 M60 72 q-5 3 -9 1 M60 72 q5 3 9 1" stroke="#7a6a58" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="paw" viewBox="0 0 64 64">
+    <ellipse cx="32" cy="42" rx="13" ry="11" fill="currentColor"/>
+    <circle cx="19" cy="24" r="5.5" fill="currentColor"/>
+    <circle cx="32" cy="18" r="6" fill="currentColor"/>
+    <circle cx="45" cy="24" r="5.5" fill="currentColor"/>
+  </symbol>
+</svg>
+
     <!-- 顶部导航 -->
     <header class="topbar">
         <div class="topbar-left">
@@ -1182,7 +1307,7 @@
     <!-- 抽屉导航 -->
     <aside class="drawer" id="drawer">
         <div class="drawer-header">
-            <div class="drawer-name">我的工作台</div>
+            <div class="drawer-name"><svg class="drawer-bear" viewBox="0 0 120 120"><use href="#bear"/></svg>我的工作台</div>
             <div class="drawer-subtitle">创作 · 养生 · 学习</div>
         </div>
         <nav class="drawer-nav">
@@ -1497,24 +1622,6 @@
                 <div class="progress-text">当前阶段：<strong>第一步 · 先把大便养成形</strong></div>
             </div>
 
-            <!-- 体质档案 -->
-            <div class="card" style="background: linear-gradient(135deg, #f5ece4 0%, #ede4da 100%); border: 1.5px solid #e6d5c4;">
-                <div class="card-title" style="color:#e65100">📋 我的体质档案</div>
-                <div class="stage-section-text">
-                    <strong>① 脾虚湿气重</strong>：大便黏腻不成形、饭后腹胀<br>
-                    <strong>② 肝气郁结</strong>：凌晨 2-5 点频繁惊醒、思绪内耗<br>
-                    <strong>③ 膀胱经淤堵</strong>：肩背肌群无力、颈椎代偿酸痛、后背僵硬<br>
-                    <strong>④ 气血亏虚</strong>：莫名掉体重、胸部脂肪流失、体内营养吸收差
-                </div>
-                <div class="stage-section-text" style="margin-top:10px">
-                    • 身高 166cm ｜ 体重 103.5 斤 ｜ 27 岁 ｜ 梨形身材<br>
-                    • 多炎症背景：结肠炎 / 胃炎 / 过敏性结膜炎 / 慢性胰腺炎 / 慢性甲状腺炎 / 慢性咽喉炎 / 毛囊炎 / 脂溢性皮炎 / 神经性皮炎 / 过敏性皮炎 / 慢性荨麻疹
-                </div>
-                <div class="stage-section-text" style="margin-top:10px; color:#bf360c">
-                    ⚠️ 调理顺序不可本末倒置：先让脾胃接得住，再谈补。前期滋腻补品只会生成湿浊，加重肩颈淤堵、失眠、大便稀烂。
-                </div>
-            </div>
-
             <!-- 每日三餐计划 -->
             <div class="card" style="border-color:#dcd6cc">
                 <div class="card-title">🍽️ 每日三餐计划</div>
@@ -1608,7 +1715,7 @@
                 <div class="card-title" style="color:#2f7d4f">📸 拍照识别饮食（发给 AI 助手）</div>
                 <div class="card-subtitle">每餐拍张照发到和 AI 的聊天里，它帮你识别：热量 · 份量 · 碳水 · 蛋白质 · 优质脂肪，并累计当日摄入。</div>
                 <div class="stage-section" style="margin-top:10px">
-                    <div class="stage-section-text">• 每日蛋白质参考目标：≥ 70g（AI 在聊天里帮你记，本页不显示任何个人数据）<br>• 想记录当天饮食，直接在聊天里发照片即可，无需在此填写</div>
+                    <div class="stage-section-text">• 每日营养目标由 AI 在聊天里帮你记录，本页不显示任何个人数据<br>• 想记录当天饮食，直接在聊天里发照片即可，无需在此填写</div>
                 </div>
             </div>
 
@@ -2517,7 +2624,9 @@
             else if (h < 23) { hi = '晚安'; emoji = '🌙'; tip = '今天辛苦啦'; }
             else { hi = '夜深了'; emoji = '🌟'; tip = '早点休息'; }
             const el = document.getElementById('greeting');
-            if (el) el.innerHTML = '<div class="greet-emoji">' + emoji + '</div><div><div class="greet-hi">' + hi + ' 🌿</div><div class="greet-tip">' + tip + '</div></div>';
+            const bearId = (h < 6 || h >= 23) ? 'bearSleep' : 'bear';
+            if (el) el.innerHTML = '<div class="greet-bear"><svg viewBox="0 0 120 120"><use href="#' + bearId + '"/></svg></div>'
+                + '<div class="greet-text"><div class="greet-hi">' + hi + ' 🌿</div><div class="greet-tip">' + tip + '</div></div>';
         }
 
 
@@ -3029,5 +3138,9 @@
             });
         }
     </script>
+
+    <div class="float-bear" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><use href="#bear"/></svg>
+    </div>
 </body>
 </html>
