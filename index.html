@@ -405,6 +405,69 @@
         .dinner-tags { margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
         @keyframes popIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
 
+        /* 学习模块 */
+        .study-module { overflow: hidden; }
+        .study-actions-row {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;
+        }
+        .platform-btn {
+            flex: 1; min-width: 80px; padding: 9px 12px; border: none; border-radius: 20px;
+            font-size: 13px; font-weight: 600; cursor: pointer; color: #fff; display: inline-flex;
+            align-items: center; justify-content: center; gap: 5px;
+        }
+        .platform-btn.douyin { background: linear-gradient(135deg, #1c1c1c 0%, #333 100%); }
+        .platform-btn.bilibili { background: linear-gradient(135deg, #00a1d6 0%, #23ade5 100%); }
+        .roll-mini {
+            padding: 9px 14px; border: 1.5px dashed var(--primary); border-radius: 20px;
+            background: #f4f8ef; color: var(--primary-dark); font-size: 13px; font-weight: 600;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
+        }
+        .roll-mini:active { transform: scale(0.96); }
+        .study-filters {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;
+        }
+        .study-chip {
+            padding: 6px 12px; border-radius: 16px; background: var(--bg); border: 1px solid var(--border);
+            font-size: 12px; color: var(--text-secondary); cursor: pointer; transition: all .2s;
+        }
+        .study-chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+        .study-list { display: flex; flex-direction: column; gap: 10px; }
+        .study-item {
+            border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden;
+            background: #fff; transition: border-color .2s, box-shadow .2s; cursor: pointer;
+        }
+        .study-item.completed { border-color: var(--primary); background: #f6faf2; }
+        .study-item.picked { box-shadow: 0 0 0 2px var(--primary); }
+        .study-main {
+            display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+        }
+        .study-icon { font-size: 30px; line-height: 1; }
+        .study-info { flex: 1; min-width: 0; }
+        .study-title { font-size: 15px; font-weight: 600; color: var(--text); }
+        .study-meta { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
+        .study-check { flex-shrink: 0; }
+        .study-check .checkbox {
+            width: 22px; height: 22px; border: 2px solid var(--border); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 13px;
+            transition: all .2s; color: #fff;
+        }
+        .study-item.completed .study-check .checkbox { background: var(--primary); border-color: var(--primary); }
+        .study-item.completed .study-check .checkbox::after { content: '✓'; }
+        .study-detail { display: none; padding: 0 14px 14px; border-top: 1px solid var(--bg); }
+        .study-item.expanded .study-detail { display: block; animation: fadeIn .25s ease; }
+        .study-steps { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+        .study-step {
+            display: flex; gap: 8px; font-size: 13px; color: var(--text-secondary); line-height: 1.5;
+        }
+        .study-step-num {
+            width: 20px; height: 20px; border-radius: 50%; background: var(--primary); color: #fff;
+            font-size: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .study-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+        .study-btns .btn-outline { flex: 1; min-width: 90px; }
+        .study-progress { margin-top: 12px; font-size: 13px; color: var(--text-secondary); text-align: center; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
         /* 进度条 */
         .progress-bar {
             height: 8px;
@@ -1158,22 +1221,6 @@
                 </div>
             </div>
 
-            <div class="card dice-card">
-                <div class="card-title">🎲 晚餐骰子</div>
-                <div class="card-subtitle">早餐固定、中餐食堂，晚餐不知道吃什么？掷一个健脾养胃的晚餐。</div>
-                <select class="dinner-stage" id="dinnerStage">
-                    <option value="1">第一阶段：健脾祛湿（温和易消化）</option>
-                    <option value="2">第二阶段：养脾胃动力（逐步加蛋白）</option>
-                    <option value="3">第三阶段：补气血（可适量红肉）</option>
-                </select>
-                <button class="roll-btn" onclick="rollDinner()">🎲 掷骰子</button>
-                <div class="dinner-result" id="dinnerResult">
-                    <div class="dinner-icon" id="dinnerIcon">🍽️</div>
-                    <div class="dinner-name" id="dinnerName">点击下方按钮</div>
-                    <div class="dinner-desc" id="dinnerDesc">随机出一份适合当前阶段的晚餐</div>
-                    <div class="dinner-tags" id="dinnerTags"></div>
-                </div>
-            </div>
 
             <div class="card">
                 <div class="task-group">
@@ -1220,6 +1267,122 @@
         <!-- 养生计划 -->
                 <!-- 每日运动 -->
         <section class="panel dgrid" id="panel-motion">
+
+            <div class="card study-module" id="study-motion">
+                <div class="card-title">🎬 运动跟练视频库</div>
+                <div class="card-subtitle">八段锦、欧阳春晓、拉伸放松，抽一个今天练，点视频直接跳。</div>
+                <div class="study-actions-row">
+                    <button class="platform-btn douyin" onclick="openStudySearch('motion', 'douyin')">🎵 抖音教程</button>
+                    <button class="platform-btn bilibili" onclick="openStudySearch('motion', 'bilibili')">📺 B站教程</button>
+                    <button class="roll-mini" onclick="rollStudy('motion')">🎲 抽今日任务</button>
+                </div>
+                <div class="study-filters"><span class="study-chip active" data-filter="全部" onclick="filterStudy('motion', '全部')">全部</span><span class="study-chip" data-filter="八段锦" onclick="filterStudy('motion', '八段锦')">八段锦</span><span class="study-chip" data-filter="欧阳春晓" onclick="filterStudy('motion', '欧阳春晓')">欧阳春晓</span><span class="study-chip" data-filter="拉伸" onclick="filterStudy('motion', '拉伸')">拉伸</span><span class="study-chip" data-filter="臀腿" onclick="filterStudy('motion', '臀腿')">臀腿</span></div>
+                <div class="study-list">
+                <div class="study-item" data-category="八段锦" data-key="SM1" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">🧘</div>
+                        <div class="study-info">
+                            <div class="study-title">八段锦完整跟练</div>
+                            <div class="study-meta">12分钟 · 晨起调息</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>两手托天理三焦</div></div><div class="study-step"><div class="study-step-num">2</div><div>左右开弓似射雕</div></div><div class="study-step"><div class="study-step-num">3</div><div>调理脾胃须单举</div></div><div class="study-step"><div class="study-step-num">4</div><div>其余五式依次完成</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '八段锦完整跟练', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '八段锦完整跟练', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="study-item" data-category="欧阳春晓" data-key="SM2" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">🦢</div>
+                        <div class="study-info">
+                            <div class="study-title">直角肩 + 少女背</div>
+                            <div class="study-meta">15分钟 · 改善圆肩驼背</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>激活背部肌群</div></div><div class="study-step"><div class="study-step-num">2</div><div>肩胛骨后缩下沉训练</div></div><div class="study-step"><div class="study-step-num">3</div><div>拉伸斜方肌</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '直角肩 + 少女背', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '直角肩 + 少女背', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="study-item" data-category="欧阳春晓" data-key="SM3" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">🏖️</div>
+                        <div class="study-info">
+                            <div class="study-title">沙漏腰养成</div>
+                            <div class="study-meta">20分钟 · 核心训练</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>侧腰卷腹</div></div><div class="study-step"><div class="study-step-num">2</div><div>俄罗斯转体</div></div><div class="study-step"><div class="study-step-num">3</div><div>平板支撑变式</div></div><div class="study-step"><div class="study-step-num">4</div><div>拉伸放松</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '沙漏腰养成', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '沙漏腰养成', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="study-item" data-category="欧阳春晓" data-key="SM4" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">🧘‍♀️</div>
+                        <div class="study-info">
+                            <div class="study-title">消除富贵包</div>
+                            <div class="study-meta">10分钟 · 舒缓拉伸</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>肩颈放松</div></div><div class="study-step"><div class="study-step-num">2</div><div>打开胸腔</div></div><div class="study-step"><div class="study-step-num">3</div><div>深层颈屈肌训练</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '消除富贵包', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '消除富贵包', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="study-item" data-category="臀腿" data-key="SM5" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">🦵</div>
+                        <div class="study-info">
+                            <div class="study-title">直腿瘦腿训练</div>
+                            <div class="study-meta">18分钟 · 腿型矫正</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>激活足底与臀部</div></div><div class="study-step"><div class="study-step-num">2</div><div>大腿内侧紧致</div></div><div class="study-step"><div class="study-step-num">3</div><div>小腿拉伸放松</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '直腿瘦腿训练', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '直腿瘦腿训练', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="study-item" data-category="拉伸" data-key="SM6" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">✨</div>
+                        <div class="study-info">
+                            <div class="study-title">睡前全身拉伸</div>
+                            <div class="study-meta">15分钟 · 放松助眠</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>猫牛式放松脊柱</div></div><div class="study-step"><div class="study-step-num">2</div><div>婴儿式放松后背</div></div><div class="study-step"><div class="study-step-num">3</div><div>仰卧 twist 放松腰腹</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '睡前全身拉伸', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '睡前全身拉伸', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="study-progress">本周已完成 <strong id="motion-progress">0</strong> 项学习</div>
+            </div>
             <div class="card">
                 <div class="card-title">🧘 八段锦</div>
                 <div class="card-subtitle">每日晨起 12 分钟，调息养神</div>
@@ -1419,6 +1582,23 @@
                         • 拒绝暴饮暴食、乱吃摆烂；不刻意少吃节食
                     </div>
                 </div>
+
+            <div class="card dice-card">
+                <div class="card-title">🎲 晚餐骰子</div>
+                <div class="card-subtitle">早餐固定、中餐食堂，晚餐不知道吃什么？掷一个健脾养胃的晚餐。</div>
+                <select class="dinner-stage" id="dinnerStage">
+                    <option value="1">第一阶段：健脾祛湿（温和易消化）</option>
+                    <option value="2">第二阶段：养脾胃动力（逐步加蛋白）</option>
+                    <option value="3">第三阶段：补气血（可适量红肉）</option>
+                </select>
+                <button class="roll-btn" onclick="rollDinner()">🎲 掷骰子</button>
+                <div class="dinner-result" id="dinnerResult">
+                    <div class="dinner-icon" id="dinnerIcon">🍽️</div>
+                    <div class="dinner-name" id="dinnerName">点击下方按钮</div>
+                    <div class="dinner-desc" id="dinnerDesc">随机出一份适合当前阶段的晚餐</div>
+                    <div class="dinner-tags" id="dinnerTags"></div>
+                </div>
+            </div>
 
                 <div class="stage-section">
                     <div class="stage-section-title">🚫 全天忌口清单</div>
@@ -1687,6 +1867,122 @@
                 <div class="card-subtitle">每天 30 分钟盲听练习。选一篇文章，用「阅读模式」切换译文，用底部播放器逐句朗读、调倍速、做单词训练。</div>
             </div>
 
+            <div class="card study-module" id="study-english">
+                <div class="card-title">📺 英语学习视频库</div>
+                <div class="card-subtitle">听力、口语、商务英语，选一个今天看，看完记得打卡。</div>
+                <div class="study-actions-row">
+                    <button class="platform-btn douyin" onclick="openStudySearch('english', 'douyin')">🎵 抖音教程</button>
+                    <button class="platform-btn bilibili" onclick="openStudySearch('english', 'bilibili')">📺 B站教程</button>
+                    <button class="roll-mini" onclick="rollStudy('english')">🎲 抽今日任务</button>
+                </div>
+                <div class="study-filters"><span class="study-chip active" data-filter="全部" onclick="filterStudy('english', '全部')">全部</span><span class="study-chip" data-filter="听力" onclick="filterStudy('english', '听力')">听力</span><span class="study-chip" data-filter="口语" onclick="filterStudy('english', '口语')">口语</span><span class="study-chip" data-filter="商务英语" onclick="filterStudy('english', '商务英语')">商务英语</span><span class="study-chip" data-filter="发音" onclick="filterStudy('english', '发音')">发音</span></div>
+                <div class="study-list">
+                <div class="study-item" data-category="听力" data-key="SE1" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">🎧</div>
+                        <div class="study-info">
+                            <div class="study-title">BBC 6 Minute English</div>
+                            <div class="study-meta">6分钟 · 日常话题</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>第一遍盲听，抓主旨</div></div><div class="study-step"><div class="study-step-num">2</div><div>第二遍看字幕，记生词</div></div><div class="study-step"><div class="study-step-num">3</div><div>第三遍跟读，模仿语调</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('english', 'BBC 6 Minute English', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('english', 'BBC 6 Minute English', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="study-item" data-category="口语" data-key="SE2" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">🗣️</div>
+                        <div class="study-info">
+                            <div class="study-title">影子跟读训练</div>
+                            <div class="study-meta">短视频 · 口语流利度</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>选一段 1 分钟视频</div></div><div class="study-step"><div class="study-step-num">2</div><div>延迟 0.5 秒跟读（影子跟读）</div></div><div class="study-step"><div class="study-step-num">3</div><div>录下来对比原声</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('english', '影子跟读训练', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('english', '影子跟读训练', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="study-item" data-category="商务英语" data-key="SE3" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">💼</div>
+                        <div class="study-info">
+                            <div class="study-title">职场邮件英语</div>
+                            <div class="study-meta">商务场景 · 实用句型</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>学习邮件开头/结尾礼貌句式</div></div><div class="study-step"><div class="study-step-num">2</div><div>掌握 request / follow-up / apologize 表达</div></div><div class="study-step"><div class="study-step-num">3</div><div>抄写 3 个常用句型</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('english', '职场邮件英语', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('english', '职场邮件英语', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="study-item" data-category="听力" data-key="SE4" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">🎬</div>
+                        <div class="study-info">
+                            <div class="study-title">看 TED-Ed 学英语</div>
+                            <div class="study-meta">科普动画 · 词汇扩展</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>先关字幕看一遍</div></div><div class="study-step"><div class="study-step-num">2</div><div>再开英文字幕看一遍</div></div><div class="study-step"><div class="study-step-num">3</div><div>摘录 5 个新词到生词本</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('english', '看 TED-Ed 学英语', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('english', '看 TED-Ed 学英语', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="study-item" data-category="口语" data-key="SE5" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">🗣️</div>
+                        <div class="study-info">
+                            <div class="study-title">英语自我介绍 30 秒</div>
+                            <div class="study-meta">实用模板 · 每日练习</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>背诵基础模板</div></div><div class="study-step"><div class="study-step-num">2</div><div>替换自己的经历/目标</div></div><div class="study-step"><div class="study-step-num">3</div><div>对着镜子说 3 遍</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('english', '英语自我介绍 30 秒', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('english', '英语自我介绍 30 秒', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="study-item" data-category="发音" data-key="SE6" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">🔤</div>
+                        <div class="study-info">
+                            <div class="study-title">美音连读弱读规则</div>
+                            <div class="study-meta">发音细节 · 听力突破口</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>了解连读、弱读、失去爆破</div></div><div class="study-step"><div class="study-step-num">2</div><div>选一句台词反复模仿</div></div><div class="study-step"><div class="study-step-num">3</div><div>用慢速→常速练习</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('english', '美音连读弱读规则', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('english', '美音连读弱读规则', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="study-progress">本周已完成 <strong id="english-progress">0</strong> 项学习</div>
+            </div>
+
             <div class="card">
                 <div class="article-count">共 5 篇文章，点选一篇开始盲听</div>
 
@@ -1932,6 +2228,122 @@
                         <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
                     </div>
                 </div>
+            </div>
+
+            <div class="card study-module" id="study-work">
+                <div class="card-title">📚 工作学习视频库</div>
+                <div class="card-subtitle">跟着视频学半导体封装采购，点分类筛选，或抽一个今日任务。</div>
+                <div class="study-actions-row">
+                    <button class="platform-btn douyin" onclick="openStudySearch('work', 'douyin')">🎵 抖音教程</button>
+                    <button class="platform-btn bilibili" onclick="openStudySearch('work', 'bilibili')">📺 B站教程</button>
+                    <button class="roll-mini" onclick="rollStudy('work')">🎲 抽今日任务</button>
+                </div>
+                <div class="study-filters"><span class="study-chip active" data-filter="全部" onclick="filterStudy('work', '全部')">全部</span><span class="study-chip" data-filter="产业链" onclick="filterStudy('work', '产业链')">产业链</span><span class="study-chip" data-filter="商业模式" onclick="filterStudy('work', '商业模式')">商业模式</span><span class="study-chip" data-filter="封装工艺" onclick="filterStudy('work', '封装工艺')">封装工艺</span><span class="study-chip" data-filter="设备备件" onclick="filterStudy('work', '设备备件')">设备备件</span><span class="study-chip" data-filter="采购实战" onclick="filterStudy('work', '采购实战')">采购实战</span></div>
+                <div class="study-list">
+                <div class="study-item" data-category="产业链" data-key="SW1" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">🏭</div>
+                        <div class="study-info">
+                            <div class="study-title">半导体产业链全景</div>
+                            <div class="study-meta">前道/后道 · 5分钟了解</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>了解 IC 设计、晶圆制造、封装测试的完整流程</div></div><div class="study-step"><div class="study-step-num">2</div><div>分清 Front-end 与 Back-end 的采购差异</div></div><div class="study-step"><div class="study-step-num">3</div><div>知道 OSAT 是后道设备采购主力</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('work', '半导体产业链全景', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('work', '半导体产业链全景', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="study-item" data-category="商业模式" data-key="SW2" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">🏢</div>
+                        <div class="study-info">
+                            <div class="study-title">IDM / Foundry / Fabless / OSAT</div>
+                            <div class="study-meta">四种模式 · 采购角色</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>IDM 自己设计制造封测，采购量大</div></div><div class="study-step"><div class="study-step-num">2</div><div>Foundry 只做前道，基本不买封装设备</div></div><div class="study-step"><div class="study-step-num">3</div><div>Fabless 只设计，买封测服务不买设备</div></div><div class="study-step"><div class="study-step-num">4</div><div>OSAT 是封装设备及备件采购主力</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('work', 'IDM / Foundry / Fabless / OSAT', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('work', 'IDM / Foundry / Fabless / OSAT', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="study-item" data-category="封装工艺" data-key="SW3" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">⚙️</div>
+                        <div class="study-info">
+                            <div class="study-title">传统封装工艺流程</div>
+                            <div class="study-meta">贴片/焊线/塑封/测试</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>晶圆切割 → 贴片 → 焊线/倒装 → 塑封 → 电镀 → 切筋成型</div></div><div class="study-step"><div class="study-step-num">2</div><div>理解每步对应设备与备件</div></div><div class="study-step"><div class="study-step-num">3</div><div>知道工艺瓶颈对采购交期的影响</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('work', '传统封装工艺流程', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('work', '传统封装工艺流程', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="study-item" data-category="设备备件" data-key="SW4" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">🔧</div>
+                        <div class="study-info">
+                            <div class="study-title">封装设备与关键备件</div>
+                            <div class="study-meta">Wire Bonder / 瓷嘴 / 劈刀</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>认识焊线机、贴片机、塑封机、测试分选机</div></div><div class="study-step"><div class="study-step-num">2</div><div>了解瓷嘴、劈刀、顶针等消耗备件</div></div><div class="study-step"><div class="study-step-num">3</div><div>掌握备件安全库存与替代方案评估</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('work', '封装设备与关键备件', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('work', '封装设备与关键备件', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="study-item" data-category="采购实战" data-key="SW5" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">📦</div>
+                        <div class="study-info">
+                            <div class="study-title">CAPEX vs OPEX 采购策略</div>
+                            <div class="study-meta">资本支出/运营支出</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>设备走 CAPEX，长周期、项目制、议价强</div></div><div class="study-step"><div class="study-step-num">2</div><div>备件耗材走 OPEX，频繁补货、VMI 寄售</div></div><div class="study-step"><div class="study-step-num">3</div><div>用 TCO 和稼动率思维做采购决策</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('work', 'CAPEX vs OPEX 采购策略', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('work', 'CAPEX vs OPEX 采购策略', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="study-item" data-category="采购实战" data-key="SW6" onclick="toggleStudyExpand(this)">
+                    <div class="study-main">
+                        <div class="study-icon">🚗</div>
+                        <div class="study-info">
+                            <div class="study-title">汽车 MRO 经验迁移</div>
+                            <div class="study-meta">经验复用 · 半导体适配</div>
+                        </div>
+                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
+                    </div>
+                    <div class="study-detail">
+                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>SAP PR/PO/GR 流程完全一致</div></div><div class="study-step"><div class="study-step-num">2</div><div>供应商绩效、ABC 分类、安全库存逻辑可用</div></div><div class="study-step"><div class="study-step-num">3</div><div>差异在于技术参数更细、认证周期更长</div></div></div>
+                        <div class="study-btns">
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('work', '汽车 MRO 经验迁移', 'douyin')">🎵 抖音视频</button>
+                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('work', '汽车 MRO 经验迁移', 'bilibili')">📺 B站视频</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="study-progress">本周已完成 <strong id="work-progress">0</strong> 项学习</div>
             </div>
 
             <div class="card">
@@ -2315,6 +2727,7 @@
                 }
 
                 updateStats();
+                updateStudyProgress();
             } catch (e) {}
         }
 
@@ -2371,6 +2784,77 @@
         }
 
         // 点击 / 输入后自动保存（防抖）
+
+        // 学习模块：分类筛选、跳转、打卡、抽任务
+        const studyKeywords = {
+            work: '半导体封装 采购',
+            english: '英语听力 口语',
+            motion: '八段锦 欧阳春晓'
+        };
+        function openStudySearch(mid, platform) {
+            const kw = studyKeywords[mid] || mid;
+            const url = platform === 'douyin'
+                ? 'https://www.douyin.com/search/' + encodeURIComponent(kw)
+                : 'https://search.bilibili.com/all?keyword=' + encodeURIComponent(kw);
+            window.open(url, '_blank');
+        }
+        function openStudyVideo(mid, title, platform) {
+            const kw = title + ' ' + (studyKeywords[mid] || '');
+            const url = platform === 'douyin'
+                ? 'https://www.douyin.com/search/' + encodeURIComponent(kw)
+                : 'https://search.bilibili.com/all?keyword=' + encodeURIComponent(kw);
+            window.open(url, '_blank');
+        }
+        function filterStudy(mid, cat) {
+            const mod = document.getElementById('study-' + mid);
+            mod.querySelectorAll('.study-chip').forEach(c => c.classList.toggle('active', c.dataset.filter === cat));
+            mod.querySelectorAll('.study-item').forEach(item => {
+                item.style.display = (cat === '全部' || item.dataset.category === cat) ? 'block' : 'none';
+            });
+        }
+        function toggleStudyExpand(item) {
+            item.classList.toggle('expanded');
+        }
+        function toggleStudyCheck(el) {
+            const item = el.closest('.study-item');
+            item.classList.toggle('completed');
+            const cb = el.querySelector('.checkbox');
+            if (cb) cb.classList.toggle('checked', item.classList.contains('completed'));
+            updateStudyProgress();
+            saveState();
+        }
+        function rollStudy(mid) {
+            const mod = document.getElementById('study-' + mid);
+            const visible = Array.from(mod.querySelectorAll('.study-item')).filter(i => i.style.display !== 'none');
+            if (!visible.length) return;
+            // 快速滚动效果
+            let count = 0;
+            const max = 12;
+            const interval = setInterval(() => {
+                visible.forEach(i => i.classList.remove('picked'));
+                const temp = visible[Math.floor(Math.random() * visible.length)];
+                temp.classList.add('picked');
+                count++;
+                if (count >= max) {
+                    clearInterval(interval);
+                    visible.forEach(i => i.classList.remove('picked'));
+                    const picked = visible[Math.floor(Math.random() * visible.length)];
+                    picked.classList.add('expanded', 'picked');
+                    picked.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    updateStudyProgress();
+                }
+            }, 70);
+        }
+        function updateStudyProgress() {
+            ['work', 'english', 'motion'].forEach(mid => {
+                const mod = document.getElementById('study-' + mid);
+                if (!mod) return;
+                const total = mod.querySelectorAll('.study-item').length;
+                const done = mod.querySelectorAll('.study-item.completed').length;
+                const el = document.getElementById(mid + '-progress');
+                if (el) el.textContent = done + '/' + total;
+            });
+        }
         document.addEventListener('click', debounce(saveState, 300));
         document.addEventListener('input', debounce(saveState, 400));
 
