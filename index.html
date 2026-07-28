@@ -87,6 +87,63 @@
         .platform-btn { border-radius: 24px; }
         .roll-mini { border-radius: 22px; }
 
+        /* 运动-体态面板 */
+        .motion-chips { padding: 4px 2px; }
+        .chip-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 2px; }
+        .chip {
+            padding: 8px 16px; border-radius: 20px; background: var(--bg); color: var(--text-secondary);
+            font-size: 13px; white-space: nowrap; border: 1.5px solid var(--border); cursor: pointer;
+            transition: all .2s; font-weight: 500;
+        }
+        .chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        .motion-hero {
+            background: linear-gradient(135deg, #a5b49a 0%, #8b9a7c 100%);
+            color: #fff; text-align: center; border: none;
+        }
+        .motion-hero-label { font-size: 12px; opacity: .92; margin-bottom: 6px; letter-spacing: 1px; }
+        .motion-hero-title { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+        .motion-hero-sub { font-size: 13px; opacity: .9; margin-bottom: 20px; }
+        .motion-stats { display: flex; justify-content: space-around; margin-bottom: 22px; }
+        .motion-stat-num { font-size: 30px; font-weight: 700; line-height: 1.1; }
+        .motion-stat-label { font-size: 12px; opacity: .85; margin-top: 4px; }
+        .motion-cta {
+            width: 100%; padding: 14px; border-radius: 24px; border: none; background: #fff;
+            color: var(--primary-dark); font-size: 15px; font-weight: 700; cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08); transition: all .2s;
+        }
+        .motion-cta:active { transform: scale(0.98); }
+        .motion-cta.done { background: var(--primary-light); color: var(--primary); }
+
+        .part-list { display: flex; flex-direction: column; gap: 12px; }
+        .part-item {
+            display: flex; align-items: center; gap: 14px; padding: 14px; background: var(--bg);
+            border-radius: 18px; cursor: pointer; transition: all .2s;
+        }
+        .part-item.expanded { background: var(--primary-light); }
+        .part-badge {
+            width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-weight: 700; font-size: 15px; flex-shrink: 0;
+        }
+        .part-badge.p1 { background: #e3edf5; color: #5a7a8a; }
+        .part-badge.p2 { background: #f2e8ec; color: #8a6d7b; }
+        .part-badge.p3 { background: #e8ede3; color: #6e7d63; }
+        .part-info { flex: 1; min-width: 0; }
+        .part-title { font-size: 15px; font-weight: 600; color: var(--text); }
+        .part-meta { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
+        .part-arrow { font-size: 12px; color: var(--text-secondary); transition: transform .2s; }
+        .part-item.expanded .part-arrow { transform: rotate(180deg); }
+        .part-detail { display: none; padding: 12px 14px 4px 56px; }
+        .part-detail.show { display: block; animation: fadeIn .25s ease; }
+        .part-step {
+            display: flex; gap: 10px; font-size: 13px; color: var(--text-secondary);
+            margin-bottom: 10px; line-height: 1.5;
+        }
+        .part-step::before {
+            content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--primary);
+            margin-top: 7px; flex-shrink: 0;
+        }
+
         /* 顶部导航 */
         .topbar {
             position: fixed;
@@ -1348,260 +1405,83 @@
 
         <!-- 养生计划 -->
                 <!-- 每日运动 -->
-        <section class="panel dgrid" id="panel-motion">
-
-            <div class="card study-module" id="study-motion">
-                <div class="card-title">🎬 运动跟练视频库</div>
-                <div class="card-subtitle">八段锦、欧阳春晓、拉伸放松，抽一个今天练，点视频直接跳。</div>
-                <div class="study-actions-row">
-                    <button class="platform-btn douyin" onclick="openStudySearch('motion', 'douyin')">🎵 抖音教程</button>
-                    <button class="platform-btn bilibili" onclick="openStudySearch('motion', 'bilibili')">📺 B站教程</button>
-                    <button class="roll-mini" onclick="rollStudy('motion')">🎲 抽今日任务</button>
+        <section class="panel" id="panel-motion">
+            <!-- 顶部体态切换标签 -->
+            <div class="card motion-chips">
+                <div class="chip-scroll">
+                    <span class="chip active">15分钟体态</span>
+                    <span class="chip">肩颈改善</span>
+                    <span class="chip">翼状肩胛</span>
+                    <span class="chip">圆肩驼背</span>
                 </div>
-                <div class="study-filters"><span class="study-chip active" data-filter="全部" onclick="filterStudy('motion', '全部')">全部</span><span class="study-chip" data-filter="八段锦" onclick="filterStudy('motion', '八段锦')">八段锦</span><span class="study-chip" data-filter="欧阳春晓" onclick="filterStudy('motion', '欧阳春晓')">欧阳春晓</span><span class="study-chip" data-filter="拉伸" onclick="filterStudy('motion', '拉伸')">拉伸</span><span class="study-chip" data-filter="臀腿" onclick="filterStudy('motion', '臀腿')">臀腿</span></div>
-                <div class="study-list">
-                <div class="study-item" data-category="八段锦" data-key="SM1" onclick="toggleStudyExpand(this)">
-                    <div class="study-main">
-                        <div class="study-icon">🧘</div>
-                        <div class="study-info">
-                            <div class="study-title">八段锦完整跟练</div>
-                            <div class="study-meta">12分钟 · 晨起调息</div>
-                        </div>
-                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
-                    </div>
-                    <div class="study-detail">
-                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>两手托天理三焦</div></div><div class="study-step"><div class="study-step-num">2</div><div>左右开弓似射雕</div></div><div class="study-step"><div class="study-step-num">3</div><div>调理脾胃须单举</div></div><div class="study-step"><div class="study-step-num">4</div><div>其余五式依次完成</div></div></div>
-                        <div class="study-btns">
-                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '八段锦完整跟练', 'douyin')">🎵 抖音视频</button>
-                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '八段锦完整跟练', 'bilibili')">📺 B站视频</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="study-item" data-category="欧阳春晓" data-key="SM2" onclick="toggleStudyExpand(this)">
-                    <div class="study-main">
-                        <div class="study-icon">🦢</div>
-                        <div class="study-info">
-                            <div class="study-title">直角肩 + 少女背</div>
-                            <div class="study-meta">15分钟 · 改善圆肩驼背</div>
-                        </div>
-                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
-                    </div>
-                    <div class="study-detail">
-                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>激活背部肌群</div></div><div class="study-step"><div class="study-step-num">2</div><div>肩胛骨后缩下沉训练</div></div><div class="study-step"><div class="study-step-num">3</div><div>拉伸斜方肌</div></div></div>
-                        <div class="study-btns">
-                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '直角肩 + 少女背', 'douyin')">🎵 抖音视频</button>
-                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '直角肩 + 少女背', 'bilibili')">📺 B站视频</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="study-item" data-category="欧阳春晓" data-key="SM3" onclick="toggleStudyExpand(this)">
-                    <div class="study-main">
-                        <div class="study-icon">🏖️</div>
-                        <div class="study-info">
-                            <div class="study-title">沙漏腰养成</div>
-                            <div class="study-meta">20分钟 · 核心训练</div>
-                        </div>
-                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
-                    </div>
-                    <div class="study-detail">
-                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>侧腰卷腹</div></div><div class="study-step"><div class="study-step-num">2</div><div>俄罗斯转体</div></div><div class="study-step"><div class="study-step-num">3</div><div>平板支撑变式</div></div><div class="study-step"><div class="study-step-num">4</div><div>拉伸放松</div></div></div>
-                        <div class="study-btns">
-                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '沙漏腰养成', 'douyin')">🎵 抖音视频</button>
-                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '沙漏腰养成', 'bilibili')">📺 B站视频</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="study-item" data-category="欧阳春晓" data-key="SM4" onclick="toggleStudyExpand(this)">
-                    <div class="study-main">
-                        <div class="study-icon">🧘‍♀️</div>
-                        <div class="study-info">
-                            <div class="study-title">消除富贵包</div>
-                            <div class="study-meta">10分钟 · 舒缓拉伸</div>
-                        </div>
-                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
-                    </div>
-                    <div class="study-detail">
-                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>肩颈放松</div></div><div class="study-step"><div class="study-step-num">2</div><div>打开胸腔</div></div><div class="study-step"><div class="study-step-num">3</div><div>深层颈屈肌训练</div></div></div>
-                        <div class="study-btns">
-                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '消除富贵包', 'douyin')">🎵 抖音视频</button>
-                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '消除富贵包', 'bilibili')">📺 B站视频</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="study-item" data-category="臀腿" data-key="SM5" onclick="toggleStudyExpand(this)">
-                    <div class="study-main">
-                        <div class="study-icon">🦵</div>
-                        <div class="study-info">
-                            <div class="study-title">直腿瘦腿训练</div>
-                            <div class="study-meta">18分钟 · 腿型矫正</div>
-                        </div>
-                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
-                    </div>
-                    <div class="study-detail">
-                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>激活足底与臀部</div></div><div class="study-step"><div class="study-step-num">2</div><div>大腿内侧紧致</div></div><div class="study-step"><div class="study-step-num">3</div><div>小腿拉伸放松</div></div></div>
-                        <div class="study-btns">
-                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '直腿瘦腿训练', 'douyin')">🎵 抖音视频</button>
-                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '直腿瘦腿训练', 'bilibili')">📺 B站视频</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="study-item" data-category="拉伸" data-key="SM6" onclick="toggleStudyExpand(this)">
-                    <div class="study-main">
-                        <div class="study-icon">✨</div>
-                        <div class="study-info">
-                            <div class="study-title">睡前全身拉伸</div>
-                            <div class="study-meta">15分钟 · 放松助眠</div>
-                        </div>
-                        <div class="study-check" onclick="event.stopPropagation(); toggleStudyCheck(this)"><div class="checkbox"></div></div>
-                    </div>
-                    <div class="study-detail">
-                        <div class="study-steps"><div class="study-step"><div class="study-step-num">1</div><div>猫牛式放松脊柱</div></div><div class="study-step"><div class="study-step-num">2</div><div>婴儿式放松后背</div></div><div class="study-step"><div class="study-step-num">3</div><div>仰卧 twist 放松腰腹</div></div></div>
-                        <div class="study-btns">
-                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '睡前全身拉伸', 'douyin')">🎵 抖音视频</button>
-                            <button class="btn-outline" onclick="event.stopPropagation(); openStudyVideo('motion', '睡前全身拉伸', 'bilibili')">📺 B站视频</button>
-                        </div>
-                    </div>
-                </div>
-                </div>
-                <div class="study-progress">本周已完成 <strong id="motion-progress">0</strong> 项学习</div>
             </div>
+
+            <!-- Hero 进度卡 -->
+            <div class="card motion-hero">
+                <div class="motion-hero-label">每日体态计划</div>
+                <div class="motion-hero-title">每天 15 分钟体态急救训练</div>
+                <div class="motion-hero-sub">挺拔体态 · 改善圆肩含胸 · 放松肩颈</div>
+                <div class="motion-stats">
+                    <div>
+                        <div class="motion-stat-num" id="streakDays">0</div>
+                        <div class="motion-stat-label">连续天数</div>
+                    </div>
+                    <div>
+                        <div class="motion-stat-num" id="totalCheckins">0</div>
+                        <div class="motion-stat-label">累计打卡</div>
+                    </div>
+                    <div>
+                        <div class="motion-stat-num" id="todayMins">0</div>
+                        <div class="motion-stat-label">今日分钟</div>
+                    </div>
+                </div>
+                <button class="motion-cta" id="motionCta" onclick="finishPosture()">完成今日 15 分钟训练</button>
+            </div>
+
+            <!-- Part 1→3 训练流程 -->
             <div class="card">
-                <div class="card-title">🧘 八段锦</div>
-                <div class="card-subtitle">每日晨起 12 分钟，调息养神</div>
-                <div class="practice-list">
-                    <div class="practice-item" data-key="P1" onclick="togglePractice(this)">
-                        <div class="checkbox"></div>
-                        <div>
-                            <div class="practice-title">两手托天理三焦</div>
-                            <div class="practice-desc">上托时吸气，下落时呼气，重复 6 次</div>
+                <div class="card-title">🎯 15分钟体态训练流程（Part 1 → 3）</div>
+                <div class="part-list">
+                    <div class="part-item" data-key="MP1" onclick="togglePart(this)">
+                        <div class="part-badge p1">P1</div>
+                        <div class="part-info">
+                            <div class="part-title">Part 1 · 放松紧张部位</div>
+                            <div class="part-meta">5分钟 · 3个动作</div>
                         </div>
+                        <div class="part-arrow">▼</div>
                     </div>
-                    <div class="practice-item" data-key="P2" onclick="togglePractice(this)">
-                        <div class="checkbox"></div>
-                        <div>
-                            <div class="practice-title">左右开弓似射雕</div>
-                            <div class="practice-desc">拉弓时展肩夹背，左右各 3 次</div>
+                    <div class="part-detail">
+                        <div class="part-step">斜方肌放松拉伸：头向对侧轻压，停留 30 秒。</div>
+                        <div class="part-step">胸肌 doorway 拉伸：小臂贴门框，身体前倾打开胸腔。</div>
+                        <div class="part-step">猫牛式脊柱活动：配合呼吸拱背、塌腰各 8 次。</div>
+                    </div>
+
+                    <div class="part-item" data-key="MP2" onclick="togglePart(this)">
+                        <div class="part-badge p2">P2</div>
+                        <div class="part-info">
+                            <div class="part-title">Part 2 · 激活薄弱部位</div>
+                            <div class="part-meta">7分钟 · 4个动作</div>
                         </div>
+                        <div class="part-arrow">▼</div>
                     </div>
-                    <div class="practice-item" data-key="P3" onclick="togglePractice(this)">
-                        <div class="checkbox"></div>
-                        <div>
-                            <div class="practice-title">调理脾胃须单举</div>
-                            <div class="practice-desc">一手上举一手下按，对拉脾胃经</div>
+                    <div class="part-detail">
+                        <div class="part-step">YTWL 肩背激活：俯卧位做 Y-T-W-L 各 10 次。</div>
+                        <div class="part-step">死虫式核心稳定：对侧手脚伸展，保持腰部贴地 12 次。</div>
+                        <div class="part-step">臀桥：脚与肩同宽，顶峰夹臀停留 2 秒，15 次。</div>
+                        <div class="part-step">俯身飞鸟：激活菱形肌与中下斜方肌，15 次。</div>
+                    </div>
+
+                    <div class="part-item" data-key="MP3" onclick="togglePart(this)">
+                        <div class="part-badge p3">P3</div>
+                        <div class="part-info">
+                            <div class="part-title">Part 3 · 整合训练</div>
+                            <div class="part-meta">3分钟 · 1个动作</div>
                         </div>
+                        <div class="part-arrow">▼</div>
                     </div>
-                </div>
-            </div>
-
-            <div class="card ouyang-hero">
-                <div class="card-title">💃 欧阳春晓体态跟练</div>
-                <div class="card-subtitle">直角肩 · 少女背 · 沙漏腰，每天选 1-2 个视频跟练。</div>
-            </div>
-
-            <div class="ouyang-item" data-key="O1" onclick="toggleOuyang(this)">
-                <div class="ouyang-title">🦢 直角肩 + 少女背</div>
-                <div class="ouyang-desc">改善圆肩驼背、斜方肌肥大，打造平直肩线和薄背。</div>
-                <div class="ouyang-meta">
-                    <span>⏱ 15 分钟</span>
-                    <span>🔥 超高人气</span>
-                    <span>📱 抖音/B站</span>
-                </div>
-                <div class="btn-group">
-                    <button class="btn-outline" onclick="event.stopPropagation()">看教学视频</button>
-                    <button class="btn-outline" onclick="event.stopPropagation()">B站搜更多</button>
-                    <button class="btn-outline" onclick="event.stopPropagation()">抖音跟练</button>
-                </div>
-            </div>
-
-            <div class="ouyang-item" data-key="O2" onclick="toggleOuyang(this)">
-                <div class="ouyang-title">🏖️ 沙漏腰养成</div>
-                <div class="ouyang-desc">针对腰腹两侧赘肉，强化核心，塑造腰线。</div>
-                <div class="ouyang-meta">
-                    <span>⏱ 20 分钟</span>
-                    <span>💪 核心训练</span>
-                    <span>📱 抖音/B站</span>
-                </div>
-                <div class="btn-group">
-                    <button class="btn-outline" onclick="event.stopPropagation()">看教学视频</button>
-                    <button class="btn-outline" onclick="event.stopPropagation()">B站搜更多</button>
-                    <button class="btn-outline" onclick="event.stopPropagation()">抖音跟练</button>
-                </div>
-            </div>
-
-            <div class="ouyang-item" data-key="O3" onclick="toggleOuyang(this)">
-                <div class="ouyang-title">🧘‍♀️ 消除富贵包</div>
-                <div class="ouyang-desc">拉伸肩颈、打开胸腔，缓解久坐低头造成的富贵包。</div>
-                <div class="ouyang-meta">
-                    <span>⏱ 10 分钟</span>
-                    <span>🌿 舒缓拉伸</span>
-                    <span>📱 抖音/B站</span>
-                </div>
-                <div class="btn-group">
-                    <button class="btn-outline" onclick="event.stopPropagation()">看教学视频</button>
-                    <button class="btn-outline" onclick="event.stopPropagation()">B站搜更多</button>
-                    <button class="btn-outline" onclick="event.stopPropagation()">抖音跟练</button>
-                </div>
-            </div>
-
-            <div class="ouyang-item" data-key="O4" onclick="toggleOuyang(this)">
-                <div class="ouyang-title">🦵 直腿瘦腿训练</div>
-                <div class="ouyang-desc">改善腿型、紧致大腿内侧，配合拉伸放松小腿。</div>
-                <div class="ouyang-meta">
-                    <span>⏱ 18 分钟</span>
-                    <span>🦵 臀腿塑形</span>
-                    <span>📱 抖音/B站</span>
-                </div>
-                <div class="btn-group">
-                    <button class="btn-outline" onclick="event.stopPropagation()">看教学视频</button>
-                    <button class="btn-outline" onclick="event.stopPropagation()">B站搜更多</button>
-                    <button class="btn-outline" onclick="event.stopPropagation()">抖音跟练</button>
-                </div>
-            </div>
-
-            <div class="article-count" style="color:#8f3d62">💃 芭杆系列（新出）</div>
-
-            <div class="ouyang-item" data-key="O5" onclick="toggleOuyang(this)">
-                <div class="ouyang-title">🩰 芭杆开背 · 改善圆肩</div>
-                <div class="ouyang-desc">扶椅背当把杆，开肩沉肩，拉长颈部线条，告别圆肩驼背。</div>
-                <div class="ouyang-meta">
-                    <span>⏱ 16 分钟</span>
-                    <span>🌿 开肩拉伸</span>
-                    <span>🆕 新系列</span>
-                </div>
-                <div class="btn-group">
-                    <button class="btn-outline" onclick="event.stopPropagation()">看教学视频</button>
-                    <button class="btn-outline" onclick="event.stopPropagation()">B站搜更多</button>
-                    <button class="btn-outline" onclick="event.stopPropagation()">抖音跟练</button>
-                </div>
-            </div>
-
-            <div class="ouyang-item" data-key="O6" onclick="toggleOuyang(this)">
-                <div class="ouyang-title">🩰 芭杆瘦腿 · 腿型矫正</div>
-                <div class="ouyang-desc">扶把杆做外开、plié 等基础动作，改善假胯宽、修饰腿型。</div>
-                <div class="ouyang-meta">
-                    <span>⏱ 20 分钟</span>
-                    <span>🦵 腿型塑形</span>
-                    <span>🆕 新系列</span>
-                </div>
-                <div class="btn-group">
-                    <button class="btn-outline" onclick="event.stopPropagation()">看教学视频</button>
-                    <button class="btn-outline" onclick="event.stopPropagation()">B站搜更多</button>
-                    <button class="btn-outline" onclick="event.stopPropagation()">抖音跟练</button>
-                </div>
-            </div>
-
-            <div class="ouyang-item" data-key="O7" onclick="toggleOuyang(this)">
-                <div class="ouyang-title">🩰 芭杆全身拉伸</div>
-                <div class="ouyang-desc">把杆辅助下的全身延展，放松筋膜、提升体态优雅感。</div>
-                <div class="ouyang-meta">
-                    <span>⏱ 14 分钟</span>
-                    <span>✨ 优雅体态</span>
-                    <span>🆕 新系列</span>
-                </div>
-                <div class="btn-group">
-                    <button class="btn-outline" onclick="event.stopPropagation()">看教学视频</button>
-                    <button class="btn-outline" onclick="event.stopPropagation()">B站搜更多</button>
-                    <button class="btn-outline" onclick="event.stopPropagation()">抖音跟练</button>
+                    <div class="part-detail">
+                        <div class="part-step">靠墙站立：后脑勺、肩胛、臀部、小腿肚、脚跟贴墙，收下巴、沉肩，保持 3 分钟。</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -2640,8 +2520,62 @@
             if (el) el.innerHTML = '<div class="greet-emoji">' + emoji + '</div><div><div class="greet-hi">' + hi + ' 🌿</div><div class="greet-tip">' + tip + '</div></div>';
         }
 
+
+        // 体态训练：折叠展开 + 打卡统计
+        function togglePart(item) {
+            item.classList.toggle('expanded');
+            const detail = item.nextElementSibling;
+            if (detail && detail.classList.contains('part-detail')) {
+                detail.classList.toggle('show');
+            }
+        }
+        const POSTURE_STATS_KEY = 'workbench_posture_stats_v1';
+        function getPostureStats() {
+            try {
+                const d = JSON.parse(localStorage.getItem(POSTURE_STATS_KEY)) || {};
+                const today = new Date().toDateString();
+                if (d.date !== today) { d.date = today; d.todayMins = 0; }
+                d.totalCheckins = d.totalCheckins || 0;
+                d.todayMins = d.todayMins || 0;
+                d.streakDays = d.streakDays || 0;
+                return d;
+            } catch (e) {
+                return { totalCheckins: 0, todayMins: 0, streakDays: 0, date: new Date().toDateString() };
+            }
+        }
+        function savePostureStats(d) {
+            try { localStorage.setItem(POSTURE_STATS_KEY, JSON.stringify(d)); } catch (e) {}
+        }
+        function renderPostureStats() {
+            const s = getPostureStats();
+            const el1 = document.getElementById('streakDays');
+            const el2 = document.getElementById('totalCheckins');
+            const el3 = document.getElementById('todayMins');
+            const btn = document.getElementById('motionCta');
+            if (el1) el1.textContent = s.streakDays;
+            if (el2) el2.textContent = s.totalCheckins;
+            if (el3) el3.textContent = s.todayMins;
+            if (btn && s.todayMins >= 15) {
+                btn.textContent = '今日已完成 ✓';
+                btn.classList.add('done');
+            }
+        }
+        function finishPosture() {
+            const s = getPostureStats();
+            if (s.todayMins < 15) {
+                s.totalCheckins += 1;
+                s.todayMins = 15;
+                s.streakDays = Math.max(s.streakDays, 1);
+                savePostureStats(s);
+                renderPostureStats();
+                const btn = document.getElementById('motionCta');
+                if (btn) { btn.textContent = '今日已完成 ✓'; btn.classList.add('done'); }
+            }
+        }
+
         updateDate();
         updateGreeting();
+        renderPostureStats();
 
         // 抽屉
         function toggleDrawer() {
