@@ -363,6 +363,48 @@
             background: #faf9f6;
         }
 
+        /* 晚餐骰子 */
+        .dice-card { text-align: center; }
+        .dinner-stage {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            font-size: 14px;
+            background: var(--bg);
+            color: var(--text);
+            margin-bottom: 12px;
+            outline: none;
+        }
+        .roll-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 24px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+        .roll-btn:active { transform: scale(0.96); }
+        .dinner-result {
+            margin-top: 16px;
+            padding: 18px;
+            background: var(--bg);
+            border-radius: 18px;
+            display: none;
+        }
+        .dinner-result.show { display: block; animation: popIn 0.35s ease; }
+        .dinner-icon { font-size: 52px; line-height: 1; }
+        .dinner-name { font-size: 18px; font-weight: 700; margin-top: 10px; color: var(--primary-dark); }
+        .dinner-desc { font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.5; }
+        .dinner-tags { margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+        @keyframes popIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+
         /* 进度条 */
         .progress-bar {
             height: 8px;
@@ -1113,6 +1155,23 @@
                             <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="card dice-card">
+                <div class="card-title">🎲 晚餐骰子</div>
+                <div class="card-subtitle">早餐固定、中餐食堂，晚餐不知道吃什么？掷一个健脾养胃的晚餐。</div>
+                <select class="dinner-stage" id="dinnerStage">
+                    <option value="1">第一阶段：健脾祛湿（温和易消化）</option>
+                    <option value="2">第二阶段：养脾胃动力（逐步加蛋白）</option>
+                    <option value="3">第三阶段：补气血（可适量红肉）</option>
+                </select>
+                <button class="roll-btn" onclick="rollDinner()">🎲 掷骰子</button>
+                <div class="dinner-result" id="dinnerResult">
+                    <div class="dinner-icon" id="dinnerIcon">🍽️</div>
+                    <div class="dinner-name" id="dinnerName">点击下方按钮</div>
+                    <div class="dinner-desc" id="dinnerDesc">随机出一份适合当前阶段的晚餐</div>
+                    <div class="dinner-tags" id="dinnerTags"></div>
                 </div>
             </div>
 
@@ -2257,6 +2316,58 @@
 
                 updateStats();
             } catch (e) {}
+        }
+
+        // 晚餐骰子
+        const dinnerPool = {
+            '1': [
+                { icon: '🥣', name: '山药小米粥 + 蒸蛋 + 小馒头', desc: '温软易消化，脾胃最舒服的组合', tags: ['温', '软', 'Stage 1+'] },
+                { icon: '🎃', name: '南瓜小米红枣粥 + 水煮蛋', desc: '南瓜养胃，红枣少量补血，甜口不腻', tags: ['甜润', 'Stage 1+'] },
+                { icon: '🥬', name: '青菜瘦肉粥 + 蒸南瓜', desc: '荤素搭配、七分饱，晚上无负担', tags: ['清淡', 'Stage 1+'] },
+                { icon: '🥟', name: '小米山药蒸糕 + 温豆浆', desc: '不想做饭时的轻晚餐', tags: ['快手', 'Stage 1+'] },
+                { icon: '🍠', name: '蒸红薯 + 水煮蛋 + 清炒时蔬', desc: '粗粮细做、饱腹感强', tags: ['粗粮', 'Stage 1+'] },
+                { icon: '🍜', name: '丝瓜鸡蛋汤面 + 小馒头', desc: '丝瓜清热、汤面暖胃', tags: ['清爽', 'Stage 1+'] }
+            ],
+            '2': [
+                { icon: '🥣', name: '山药小米粥 + 蒸蛋 + 小馒头', desc: '温软易消化，脾胃最舒服的组合', tags: ['温', '软', 'Stage 1+'] },
+                { icon: '🍅', name: '番茄鸡蛋面（少油）+ 焯青菜', desc: '易做、开胃、不油腻', tags: ['家常', 'Stage 2+'] },
+                { icon: '🍖', name: '白萝卜排骨汤 + 软米饭 + 烫青菜', desc: '萝卜顺气、排骨温补，适合傍晚', tags: ['温补', 'Stage 2+'] },
+                { icon: '🐟', name: '清蒸鱼 + 小米粥 + 白灼菜心', desc: '优质蛋白、低脂好消化', tags: ['高蛋白', 'Stage 2+'] },
+                { icon: '🍠', name: '蒸红薯 + 水煮蛋 + 清炒时蔬', desc: '粗粮细做、饱腹感强', tags: ['粗粮', 'Stage 2+'] },
+                { icon: '🍜', name: '丝瓜鸡蛋汤面 + 小馒头', desc: '丝瓜清热、汤面暖胃', tags: ['清爽', 'Stage 2+'] },
+                { icon: '🥣', name: '莲藕排骨汤 + 软米饭', desc: '莲藕健脾、排骨温润，秋冬尤宜', tags: ['温润', 'Stage 2+'] }
+            ],
+            '3': [
+                { icon: '🥣', name: '山药小米粥 + 蒸蛋 + 小馒头', desc: '温软易消化，脾胃最舒服的组合', tags: ['温', '软', 'Stage 1+'] },
+                { icon: '🍖', name: '白萝卜排骨汤 + 软米饭 + 烫青菜', desc: '萝卜顺气、排骨温补，适合傍晚', tags: ['温补', 'Stage 2+'] },
+                { icon: '🐟', name: '清蒸鱼 + 小米粥 + 白灼菜心', desc: '优质蛋白、低脂好消化', tags: ['高蛋白', 'Stage 2+'] },
+                { icon: '🥩', name: '菠菜猪肝瘦肉粥', desc: '补铁养血，适合第三阶段气血回补', tags: ['补血', 'Stage 3'] },
+                { icon: '🥕', name: '胡萝卜牛肉粥', desc: '牛肉温补、胡萝卜养眼，第三阶段可加量', tags: ['温补', 'Stage 3'] },
+                { icon: '🥣', name: '莲藕排骨汤 + 软米饭', desc: '莲藕健脾、排骨温润，秋冬尤宜', tags: ['温润', 'Stage 2+'] }
+            ]
+        };
+        function renderDinner(opt) {
+            document.getElementById('dinnerIcon').textContent = opt.icon;
+            document.getElementById('dinnerName').textContent = opt.name;
+            document.getElementById('dinnerDesc').textContent = opt.desc;
+            document.getElementById('dinnerTags').innerHTML = opt.tags.map(t => `<span class="tag">${t}</span>`).join('');
+            document.getElementById('dinnerResult').classList.add('show');
+        }
+        function rollDinner() {
+            const stage = document.getElementById('dinnerStage').value;
+            const pool = dinnerPool[stage];
+            let count = 0;
+            document.getElementById('dinnerResult').classList.add('show');
+            const interval = setInterval(() => {
+                const temp = pool[Math.floor(Math.random() * pool.length)];
+                renderDinner(temp);
+                count++;
+                if (count > 10) {
+                    clearInterval(interval);
+                    const final = pool[Math.floor(Math.random() * pool.length)];
+                    renderDinner(final);
+                }
+            }, 70);
         }
 
         // 点击 / 输入后自动保存（防抖）
