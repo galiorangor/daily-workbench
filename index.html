@@ -13,15 +13,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #5a7d3a;
-            --primary-light: #e8f0e0;
-            --primary-dark: #4a6b2f;
+            --primary: #8b9a7c;
+            --primary-light: #e8ede3;
+            --primary-dark: #6e7d63;
             --bg: #f5f2ed;
             --card: #ffffff;
-            --text: #2d2d2d;
-            --text-secondary: #888888;
-            --border: #e8e4de;
-            --shadow: 0 2px 12px rgba(0,0,0,0.05);
+            --text: #4a4a4a;
+            --text-secondary: #8f8f8f;
+            --border: #e8e4df;
+            --shadow: 0 4px 20px rgba(110, 100, 90, 0.06);
         }
 
         * {
@@ -337,7 +337,7 @@
 
         .badge-orange {
             background: #fff3e0;
-            color: #e65100;
+            color: #a66b4a;
         }
 
         /* 学习计划表格 */
@@ -360,7 +360,7 @@
             font-weight: 600;
         }
         .table tbody tr:nth-child(even) td {
-            background: #faf9f6;
+            background: #f8f6f2;
         }
 
         /* 晚餐骰子 */
@@ -419,7 +419,7 @@
         .platform-btn.bilibili { background: linear-gradient(135deg, #00a1d6 0%, #23ade5 100%); }
         .roll-mini {
             padding: 9px 14px; border: 1.5px dashed var(--primary); border-radius: 20px;
-            background: #f4f8ef; color: var(--primary-dark); font-size: 13px; font-weight: 600;
+            background: #f0f4eb; color: var(--primary-dark); font-size: 13px; font-weight: 600;
             cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
         }
         .roll-mini:active { transform: scale(0.96); }
@@ -436,7 +436,7 @@
             border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden;
             background: #fff; transition: border-color .2s, box-shadow .2s; cursor: pointer;
         }
-        .study-item.completed { border-color: var(--primary); background: #f6faf2; }
+        .study-item.completed { border-color: var(--primary); background: #f4f7f1; }
         .study-item.picked { box-shadow: 0 0 0 2px var(--primary); }
         .study-main {
             display: flex; align-items: center; gap: 12px; padding: 12px 14px;
@@ -468,10 +468,44 @@
         .study-progress { margin-top: 12px; font-size: 13px; color: var(--text-secondary); text-align: center; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+        /* 护肤时间轴 */
+        .skin-timeline { position: relative; padding: 8px 0 4px; }
+        .skin-timeline::before { content: ''; position: absolute; left: 59px; top: 14px; bottom: 20px; width: 2px; background: var(--border); }
+        .timeline-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; position: relative; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-time { width: 42px; text-align: right; font-size: 14px; font-weight: 700; color: var(--primary); padding-top: 8px; flex-shrink: 0; }
+        .timeline-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); margin-top: 10px; flex-shrink: 0; position: relative; z-index: 1; box-shadow: 0 0 0 3px var(--card), 0 0 0 5px var(--primary-light); }
+        .timeline-content { flex: 1; min-width: 0; background: var(--bg); border-radius: 16px; padding: 12px 14px; transition: all .2s; }
+        .timeline-item.completed .timeline-content { opacity: .65; }
+        .timeline-item.completed .timeline-title { text-decoration: line-through; color: var(--text-secondary); }
+        .timeline-title { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .timeline-desc { font-size: 12px; color: var(--text-secondary); margin-top: 4px; line-height: 1.5; }
+        .timeline-check { width: 26px; height: 26px; min-width: 26px; border: 2px solid var(--border); border-radius: 50%; margin-top: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; background: white; transition: all .2s; font-size: 13px; color: #fff; }
+        .timeline-check.checked { background: var(--primary); border-color: var(--primary); }
+        .timeline-check.checked::after { content: '✓'; }
+        .timeline-section-title { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 18px 0 10px; padding-left: 4px; }
+
+        /* 护肤知识小卡 */
+        .tip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+        .tip-card { background: var(--bg); border-radius: 18px; padding: 16px; transition: transform .2s; }
+        .tip-card:active { transform: scale(0.98); }
+        .tip-icon { font-size: 26px; line-height: 1; margin-bottom: 8px; }
+        .tip-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+        .tip-text { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+        /* 环形进度 */
+        .progress-ring { width: 72px; height: 72px; border-radius: 50%; background: conic-gradient(var(--primary) var(--p, 0%), var(--bg) 0); position: relative; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .progress-ring::before { content: ''; position: absolute; inset: 8px; background: var(--card); border-radius: 50%; }
+        .progress-ring span { position: relative; font-size: 16px; font-weight: 700; color: var(--primary); }
+
+        /* 莫兰迪柔和标签 */
+        .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .tag { padding: 5px 12px; border-radius: 12px; font-size: 12px; background: var(--bg); color: var(--text-secondary); border: 1px solid var(--border); }
+
         /* 进度条 */
         .progress-bar {
             height: 8px;
-            background: #f0ede8;
+            background: #ede9e2;
             border-radius: 10px;
             overflow: hidden;
             margin: 10px 0;
@@ -551,7 +585,7 @@
             width: 24px;
             height: 24px;
             min-width: 24px;
-            border: 2px solid #c5d4b5;
+            border: 2px solid #c5d1b8;
             border-radius: 8px;
             margin-top: 2px;
             display: flex;
@@ -828,11 +862,11 @@
         }
 
         .english-hero .card-title {
-            color: #2c6a8f;
+            color: #5a7a8a;
         }
 
         .english-hero .card-subtitle {
-            color: #5a8fad;
+            color: #7d99a8;
         }
 
         .article-count {
@@ -912,11 +946,11 @@
         }
 
         .ouyang-hero .card-title {
-            color: #8f3d62;
+            color: #8b5a6d;
         }
 
         .ouyang-hero .card-subtitle {
-            color: #b56b88;
+            color: #a67d8d;
         }
 
         .ouyang-item {
@@ -955,7 +989,7 @@
         }
 
         .ouyang-meta span {
-            background: #f8f4f6;
+            background: #f5f1f3;
             padding: 3px 10px;
             border-radius: 10px;
         }
@@ -1526,7 +1560,7 @@
 
                 <section class="panel" id="panel-health">
             <!-- 顶部：严格顺序总览 -->
-            <div class="card english-hero" style="background: linear-gradient(135deg, #f5f0eb 0%, #ede8e0 100%); border-color: #e8e2da;">
+            <div class="card english-hero" style="background: linear-gradient(135deg, #f2eeea 0%, #e9e4dd 100%); border-color: #e4ded6;">
                 <div class="card-title" style="color:#8b7355">🌱 调理严格顺序</div>
                 <div class="card-subtitle" style="color:#a68b6b">第一步养大便成形（7-10天）→ 第二步提升脾胃动力（2-3周）→ 第三步滋养补足气血。同步每日欧阳春晓肩颈训练疏通膀胱经、疏肝祛湿。<strong>顺序不可逆，禁止前期大量滋补阿胶、桂圆、牛油果、坚果等滋腻食物加重脾胃负担。</strong></div>
                 <div class="progress-bar" style="background:#e8e2da">
@@ -1536,7 +1570,7 @@
             </div>
 
             <!-- 体质档案 -->
-            <div class="card" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe9d6 100%); border: 1.5px solid #ffd8a8;">
+            <div class="card" style="background: linear-gradient(135deg, #f5ece4 0%, #ede4da 100%); border: 1.5px solid #e6d5c4;">
                 <div class="card-title" style="color:#e65100">📋 我的体质档案</div>
                 <div class="stage-section-text">
                     <strong>① 脾虚湿气重</strong>：大便黏腻不成形、饭后腹胀<br>
@@ -1554,7 +1588,7 @@
             </div>
 
             <!-- 每日三餐计划 -->
-            <div class="card" style="border-color:#e0d8c8">
+            <div class="card" style="border-color:#dcd6cc">
                 <div class="card-title">🍽️ 每日三餐计划</div>
                 <div class="card-subtitle">脾胃要「温、软、定时、七分饱」，不刻意节食，防气血持续流失。</div>
 
@@ -1619,7 +1653,7 @@
             </div>
 
             <!-- 下午加餐 -->
-            <div class="card" style="border-color:#e6d0db">
+            <div class="card" style="border-color:#decfd6">
                 <div class="card-title">🍎 下午加餐（防掉秤）</div>
                 <div class="card-subtitle">容易饱又戒了零食，热量缺口下来了。下午 3-4 点补一顿温和加餐——不是饼干奶茶。</div>
                 <div class="stage-section">
@@ -1651,7 +1685,7 @@
             </div>
 
             <!-- 第一阶段 -->
-            <div class="stage-card" style="border-color:#e0d8c8">
+            <div class="stage-card" style="border-color:#dcd6cc">
                 <div class="stage-header">
                     <div class="stage-title">第一阶段 · 7-10天 先把大便养成形</div>
                     <span class="card-badge badge-green">进行中</span>
@@ -1697,7 +1731,7 @@
             </div>
 
             <!-- 第二阶段 -->
-            <div class="stage-card" style="border-color:#e6d0db">
+            <div class="stage-card" style="border-color:#decfd6">
                 <div class="stage-header">
                     <div class="stage-title">第二阶段 · 2-3周 提升脾胃动力</div>
                     <span class="card-badge badge-purple">待开启</span>
@@ -1727,7 +1761,7 @@
             </div>
 
             <!-- 第三阶段 -->
-            <div class="stage-card" style="border-color:#d8e0d0">
+            <div class="stage-card" style="border-color:#d2d9cb">
                 <div class="stage-header">
                     <div class="stage-title">第三阶段 · 正式补养气血</div>
                     <span class="card-badge badge-orange">待开启</span>
@@ -2077,69 +2111,157 @@
         </section>
         <!-- 护肤 -->
         <section class="panel dgrid" id="panel-skincare">
-            <div class="card">
-                <div class="card-title">🧴 敏感肌 · 抗炎护肤</div>
-                <div class="card-subtitle">你的目标：稳住屏障、压下炎症，不烂脸。核心四件事——温和清洁、舒缓保湿、硬防晒、避开酒精/香精/猛药酸。</div>
+            <!-- 护肤总览 + 今日进度 -->
+            <div class="card" style="background: linear-gradient(135deg, #f0e8ec 0%, #e9e0e5 100%); border-color: #decfd6;">
+                <div style="display:flex;align-items:center;gap:18px;">
+                    <div class="progress-ring" id="skinProgressRing" style="--p:0%;"><span id="skinProgressText">0%</span></div>
+                    <div>
+                        <div class="card-title" style="color:#7a5e6c;margin-bottom:4px;">🧴 每日温和护肤</div>
+                        <div class="card-subtitle" style="color:#9a8290;margin-bottom:0;">稳住屏障、减少刺激、做好防晒。今天完成了多少？</div>
+                    </div>
+                </div>
                 <div class="tag-list">
-                    <span class="tag">敏感肌</span>
-                    <span class="tag">抗炎护肤</span>
-                    <span class="tag">修护屏障</span>
+                    <span class="tag">温和清洁</span>
+                    <span class="tag">舒缓保湿</span>
                     <span class="tag">硬防晒</span>
+                    <span class="tag">精简护肤</span>
                 </div>
             </div>
 
+            <!-- 早晚护肤时间轴 -->
+            <div class="card">
+                <div class="card-title">🕐 护肤时间轴</div>
+                <div class="card-subtitle">按顺序做，每步完成后点勾，养成稳定护肤节奏。</div>
+                <div class="skin-timeline">
+                    <div class="timeline-section-title">晨间流程</div>
+                    <div class="timeline-item" data-key="SK5">
+                        <div class="timeline-time">07:30</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">🧴 温和清洁</div>
+                            <div class="timeline-desc">37°C 温水 + 氨基酸洁面，不搓不烫。</div>
+                        </div>
+                        <div class="timeline-check checkbox" onclick="togglePractice(this.closest('.timeline-item'))"></div>
+                    </div>
+                    <div class="timeline-item" data-key="SK6">
+                        <div class="timeline-time">07:35</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">💧 舒缓补水</div>
+                            <div class="timeline-desc">可复美喷雾轻拍至吸收，脸半干时续下一步。</div>
+                        </div>
+                        <div class="timeline-check checkbox" onclick="togglePractice(this.closest('.timeline-item'))"></div>
+                    </div>
+                    <div class="timeline-item" data-key="SK7">
+                        <div class="timeline-time">07:40</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">🌿 修护精华</div>
+                            <div class="timeline-desc">按耐受选优斐斯/科颜萃/初辑，薄涂一层。</div>
+                        </div>
+                        <div class="timeline-check checkbox" onclick="togglePractice(this.closest('.timeline-item'))"></div>
+                    </div>
+                    <div class="timeline-item" data-key="SK8">
+                        <div class="timeline-time">07:45</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">☀️ 保湿 / 硬防晒</div>
+                            <div class="timeline-desc">保湿收尾；出门优先帽子/伞/口罩。</div>
+                        </div>
+                        <div class="timeline-check checkbox" onclick="togglePractice(this.closest('.timeline-item'))"></div>
+                    </div>
+
+                    <div class="timeline-section-title">夜间流程</div>
+                    <div class="timeline-item" data-key="SK9">
+                        <div class="timeline-time">21:00</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">🫧 清洁</div>
+                            <div class="timeline-desc">氨基酸洁面卸除一天油脂灰尘，动作轻柔。</div>
+                        </div>
+                        <div class="timeline-check checkbox" onclick="togglePractice(this.closest('.timeline-item'))"></div>
+                    </div>
+                    <div class="timeline-item" data-key="SK10">
+                        <div class="timeline-time">21:05</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">🧊 湿敷舒缓</div>
+                            <div class="timeline-desc">可复美喷雾湿敷 3–5 分钟，泛红处重点照顾。</div>
+                        </div>
+                        <div class="timeline-check checkbox" onclick="togglePractice(this.closest('.timeline-item'))"></div>
+                    </div>
+                    <div class="timeline-item" data-key="SK11">
+                        <div class="timeline-time">21:15</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">🌙 修护精华</div>
+                            <div class="timeline-desc">夜间是屏障修护黄金期，选一款修护精华薄涂。</div>
+                        </div>
+                        <div class="timeline-check checkbox" onclick="togglePractice(this.closest('.timeline-item'))"></div>
+                    </div>
+                    <div class="timeline-item" data-key="SK12">
+                        <div class="timeline-time">21:20</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">🛡️ 保湿封闭</div>
+                            <div class="timeline-desc">最后一层保湿，锁住水分和精华。</div>
+                        </div>
+                        <div class="timeline-check checkbox" onclick="togglePractice(this.closest('.timeline-item'))"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 护肤小知识 -->
+            <div class="card">
+                <div class="card-title">💡 护肤小知识</div>
+                <div class="card-subtitle">少即是多，温和第一。</div>
+                <div class="tip-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon">🧊</div>
+                        <div class="tip-title">水温比产品更重要</div>
+                        <div class="tip-text">37°C 左右最佳，过冷过热都会让屏障紧张。</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">☀️</div>
+                        <div class="tip-title">硬防晒优先</div>
+                        <div class="tip-text">紫外线是泛红、色沉的头号推手，帽子口罩比防晒霜更温和。</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🧪</div>
+                        <div class="tip-title">成分越简单越好</div>
+                        <div class="tip-text">先停酒精、香精、高浓度酸，屏障稳了再考虑其它。</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🌙</div>
+                        <div class="tip-title">夜间是修护黄金期</div>
+                        <div class="tip-text">晚上 10 点到凌晨 2 点皮肤代谢快，睡前护肤别敷衍。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 现有产品 -->
             <div class="card">
                 <div class="card-title">🧴 现有产品清单</div>
-                <div class="card-subtitle">按你皮肤耐受情况叠加，先单一建立耐受再逐步加量。</div>
+                <div class="card-subtitle">先单一建立耐受，再逐步叠加。</div>
                 <div class="practice-list">
-                    <div class="practice-item">
-                        <div>
-                            <div class="practice-title">优斐斯精华</div>
-                            <div class="practice-desc">抗炎修护主力，夜间用；建立耐受后晨间可续。</div>
-                        </div>
-                    </div>
-                    <div class="practice-item">
-                        <div>
-                            <div class="practice-title">可复美（喷雾状水）</div>
-                            <div class="practice-desc">随时舒缓补水，喷后轻拍至吸收，可湿敷急救。</div>
-                        </div>
-                    </div>
-                    <div class="practice-item">
-                        <div>
-                            <div class="practice-title">科颜萃精华</div>
-                            <div class="practice-desc">修护类精华，用于屏障养护，叠加在抗炎之后。</div>
-                        </div>
-                    </div>
-                    <div class="practice-item">
-                        <div>
-                            <div class="practice-title">初辑</div>
-                            <div class="practice-desc">抗炎/舒缓类，按说明少量叠加，观察耐受。</div>
-                        </div>
-                    </div>
+                    <div class="practice-item"><div><div class="practice-title">优斐斯精华</div><div class="practice-desc">抗炎修护主力，夜间用；建立耐受后晨间可续。</div></div></div>
+                    <div class="practice-item"><div><div class="practice-title">可复美（喷雾状水）</div><div class="practice-desc">随时舒缓补水，喷后轻拍至吸收，可湿敷急救。</div></div></div>
+                    <div class="practice-item"><div><div class="practice-title">科颜萃精华</div><div class="practice-desc">修护类精华，用于屏障养护，叠加在抗炎之后。</div></div></div>
+                    <div class="practice-item"><div><div class="practice-title">初辑</div><div class="practice-desc">抗炎/舒缓类，按说明少量叠加，观察耐受。</div></div></div>
                 </div>
-                <div class="card-subtitle" style="margin-top:12px;margin-bottom:0;">⚠️ 叠加顺序以耐受为准：清洁 → 水（可复美）→ 精华（优斐斯/科颜萃/初辑）→ 保湿。酒精、香精、高浓度酸先停。</div>
+                <div class="card-subtitle" style="margin-top:12px;margin-bottom:0;">建议顺序：清洁 → 水 → 精华 → 保湿。以当天皮肤耐受为准。</div>
             </div>
 
-            <div class="card">
-                <div class="card-title">🌞 抗炎护肤原则</div>
-                <div class="card-subtitle">敏感肌的底线，照着做就不容易烂脸。</div>
-                <div class="practice-list">
-                    <div class="practice-item"><div><div class="practice-title">温和清洁</div><div class="practice-desc">氨基酸洁面，37°C 温水，早晚各一次，不频繁去角质。</div></div></div>
-                    <div class="practice-item"><div><div class="practice-title">舒缓保湿</div><div class="practice-desc">用现有修护类产品稳住屏障，洗脸后趁湿涂。</div></div></div>
-                    <div class="practice-item"><div><div class="practice-title">硬防晒</div><div class="practice-desc">户外帽 / 伞 / 口罩，紫外线是敏感肌头号炎症源。</div></div></div>
-                    <div class="practice-item"><div><div class="practice-title">避开刺激</div><div class="practice-desc">暂停酒精、香精、高浓度酸、猛药成分，先养屏障。</div></div></div>
-                </div>
-            </div>
-
+            <!-- 每日护肤打卡 -->
             <div class="card">
                 <div class="task-group">
                     <div class="task-group-title">每日护肤打卡</div>
-                    <div class="task-group-desc">抗炎护肤也要每天勾，和吃饭、运动一样算日课。</div>
+                    <div class="task-group-desc">大原则每天勾一遍，和吃饭、运动一起算日课。</div>
                     <div class="task-list" id="skinTaskList">
                         <div class="task-item daily" data-key="SK1" data-id="1" onclick="toggleTask(this)">
                             <div class="checkbox"></div>
                             <div class="task-content">
-                                <div class="task-title">晨间抗炎护肤</div>
+                                <div class="task-title">晨间护肤完成</div>
                                 <div class="task-desc">清洁 + 水 + 精华 + 防晒</div>
                                 <span class="task-tag">每日必做</span>
                             </div>
@@ -2148,8 +2270,8 @@
                         <div class="task-item daily" data-key="SK2" data-id="2" onclick="toggleTask(this)">
                             <div class="checkbox"></div>
                             <div class="task-content">
-                                <div class="task-title">夜间修护护肤</div>
-                                <div class="task-desc">清洁 + 优斐斯/科颜萃 + 可复美湿敷</div>
+                                <div class="task-title">夜间护肤完成</div>
+                                <div class="task-desc">清洁 + 湿敷 + 精华 + 保湿</div>
                                 <span class="task-tag">每日必做</span>
                             </div>
                             <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
@@ -2159,7 +2281,7 @@
                             <div class="task-content">
                                 <div class="task-title">今日硬防晒</div>
                                 <div class="task-desc">户外帽 / 伞 / 口罩，至少一项</div>
-                                <span class="task-tag">抗炎关键</span>
+                                <span class="task-tag">维稳关键</span>
                             </div>
                             <div class="task-delete" onclick="event.stopPropagation(); deleteTask(this)">✕</div>
                         </div>
@@ -2678,6 +2800,7 @@
                 data.work = workTasks.map(t => ({ id: t.id, text: t.text, completed: t.completed }));
                 data.workCounter = workIdCounter;
                 localStorage.setItem(STORE_KEY, JSON.stringify(data));
+                updateSkinProgress();
             } catch (e) {}
         }
 
@@ -2736,6 +2859,7 @@
 
                 updateStats();
                 updateStudyProgress();
+                updateSkinProgress();
             } catch (e) {}
         }
 
@@ -2789,6 +2913,18 @@
                     renderDinner(final);
                 }
             }, 70);
+        }
+
+        // 护肤完成度环形进度
+        function updateSkinProgress() {
+            const items = document.querySelectorAll('#panel-skincare [data-key^="SK"]');
+            const total = items.length;
+            const done = document.querySelectorAll('#panel-skincare [data-key^="SK"].completed').length;
+            const pct = total ? Math.round(done / total * 100) : 0;
+            const ring = document.getElementById('skinProgressRing');
+            const text = document.getElementById('skinProgressText');
+            if (ring) ring.style.setProperty('--p', pct + '%');
+            if (text) text.textContent = pct + '%';
         }
 
         // 点击 / 输入后自动保存（防抖）
