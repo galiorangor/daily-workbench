@@ -1,6 +1,6 @@
 // 我的每日工作台 — Service Worker
 // 作用：缓存 app 外壳，实现离线打开 + 触发安卓"安装"弹窗
-const CACHE = 'workbench-v15';
+const CACHE = 'workbench-v16';
 const ASSETS = [
   './',
   './index.html',
