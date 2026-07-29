@@ -1,13 +1,13 @@
 {
-  "name": "我的每日工作台",
-  "short_name": "工作台",
-  "description": "每日计划、运动、养生、钢琴、英语一体化个人工作台",
+  "name": "Grace的28天养生工作台",
+  "short_name": "28天养生",
+  "description": "每日打卡、晚餐骰子、身体反馈记录、周复盘与28天趋势分析的个人健康习惯管理台",
   "start_url": "index.html",
   "scope": ".",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f5f2ed",
-  "theme_color": "#5a7d3a",
+  "background_color": "#f7f3ec",
+  "theme_color": "#8a9a7b",
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
